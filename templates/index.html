@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    {% if not authorized %}
+    <div id="login">
+        <button class="btn btn-default btn-lg" onclick="location.href='/authorize'">login</button>
+    </div>
+    {% endif %}
+</body>
+</html>
