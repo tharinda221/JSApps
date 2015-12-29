@@ -1,14 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    {% if not authorized %}
-    <div id="login">
-        <button class="btn btn-default btn-lg" onclick="location.href='/authorize'">login</button>
-    </div>
+{% extends "base.html" %}
+{% block title %}JsApps{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important {
+            color: #336699;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Wel Come</h1>
+    {% if authorized %}
+        <p class="important">
+            Welcome {% print(name) %}.
+            <img src="https://graph.facebook.com/{%print(id)%}/picture"/>
+        </p>
     {% endif %}
-</body>
-</html>
+
+    {% if not authorized %}
+        <div id="login">
+            <button class="btn btn-default btn-lg" onclick="location.href='/authorize'">login</button>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

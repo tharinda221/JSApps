@@ -1,25 +1,24 @@
 __author__ = 'tharinda'
 
-from json import loads, dumps
+# import classes
+from backend.common.Constants import *
+
+# import libraries
+from json import loads
 from urllib3 import HTTPSConnectionPool
 from urlparse import parse_qs
-
 import requests
-
 import logging
 import flask
 
 app = flask.Flask(__name__)
 app.config.from_object(__name__)
-app.secret_key = "cb5fcc9d29666ecb06ef35f9bdeddc54"
-#Bootstrap(app)
+app.secret_key = common.ApplicationSecret
 
-FACEBOOK_APP_ID="1061202120578874"
-FACEBOOK_APP_SECRET="cb5fcc9d29666ecb06ef35f9bdeddc54"
-GRAPH_API_VERSION="v2.4"
-REDIRECT_URI="http://localhost:8080/callback"
-
-TOKENS = {}
+FACEBOOK_APP_ID = facebook.appID
+FACEBOOK_APP_SECRET = facebook.secretKey
+GRAPH_API_VERSION = facebook.GraphAPIVersion
+REDIRECT_URI = facebook.redirectURL
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 requests.packages.urllib3.disable_warnings()
@@ -30,7 +29,6 @@ class NotAuthorizedException(Exception):
 
 
 class FacebookConnection(HTTPSConnectionPool):
-
     def __init__(self):
         super(FacebookConnection, self).__init__('graph.facebook.com')
 
@@ -43,19 +41,19 @@ class FacebookConnection(HTTPSConnectionPool):
 
         return self.urlopen(method, url, headers=http_headers, body=request_body)
 
-FACEBOOK_CONNECTION=FacebookConnection()
+
+FACEBOOK_CONNECTION = FacebookConnection()
+
 
 # OAuth functions
 
-
-def get_app_token():
-
+def GetAppToken():
     try:
         response = FACEBOOK_CONNECTION(
-            'GET',
-            '/oauth/access_token?client_id=%s&client_secret=%s&grant_type=client_credentials'
-            % (FACEBOOK_APP_ID, FACEBOOK_APP_SECRET),
-            None, None, None)
+                'GET',
+                '/oauth/access_token?client_id=%s&client_secret=%s&grant_type=client_credentials'
+                % (FACEBOOK_APP_ID, FACEBOOK_APP_SECRET),
+                None, None, None)
 
         return parse_qs(response.data.decode("utf-8"))["access_token"]
     except KeyError:
@@ -65,18 +63,22 @@ def get_app_token():
         raise
 
 
-def get_user_token(code):
+def getUserToken(code):
     try:
         response = FACEBOOK_CONNECTION(
-            'GET',
-            '/%s/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s'
-            % (GRAPH_API_VERSION, FACEBOOK_APP_ID, REDIRECT_URI, FACEBOOK_APP_SECRET, code),
-            None, None, None)
-        print(response.data.decode("utf-8"))
-
+                'GET',
+                '/%s/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s'
+                % (GRAPH_API_VERSION, FACEBOOK_APP_ID, REDIRECT_URI, FACEBOOK_APP_SECRET, code),
+                None, None, None)
         return loads(response.data.decode("utf-8"))["access_token"]
     except KeyError:
         logging.log(logging.ERROR, response.data)
         raise NotAuthorizedException("Authorization error", "User access token not found")
     except:
         raise
+
+
+def getUserInitInfo(accesstoken):
+    url = facebook.getUserID + accesstoken
+    response = requests.get(url)
+    return response.json()

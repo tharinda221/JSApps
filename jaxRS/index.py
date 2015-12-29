@@ -1,14 +1,17 @@
 __author__ = 'tharinda'
-
-from flask import Flask , make_response , render_template
-from flask_restful import Resource
-from backend.facebook import *
+# import classes
+from jaxRS.facebook import *
+# import libraries
+from flask import Flask, make_response, render_template
 
 app = Flask(__name__)
-class Main(Resource):
 
+
+class Main(Resource):
     def get(self):
         global TOKENS
+        global USER
         headers = {'Content-Type': 'text/html'}
-        user_authorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('index.html', authorized=user_authorized),200,headers)
+        userAuthorized = True if "user_token" in TOKENS else False
+        return make_response(render_template('index.html', authorized=userAuthorized, id=USER["id"],
+                                             name=USER["name"]), 200, headers)
