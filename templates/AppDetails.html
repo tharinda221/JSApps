@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}JsApps{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% block header %}
+            {% include "header.html" %}
+        {% endblock %}
+        {% block Links %}
+            {% include "Links.html" %}
+        {% endblock %}
+        {% block appDetails %}
+            <div class="row">
+                <div class="span9" id="content">
+                    {% block appDetailContent %}
+                        {% include "appDetailContent.html" %}
+                    {% endblock %}
+                    {% block commentError %}
+                        {% include "commentError.html" %}
+                    {% endblock %}
+                    {% block commentSuccess %}
+                        {% include "commentSuccess.html" %}
+                    {% endblock %}
+                    {% block comment %}
+                        {% include "comment.html" %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+        {% block footer %}
+            {% include 'footer.html' %}
+        {% endblock %}
+    </div>
+{% endblock %}

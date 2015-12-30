@@ -1,0 +1,22 @@
+{% block app %}
+    <li class="span3">
+        <div class="thumbnail">
+            <a onclick="location.href='/appDetails'"><img
+                    src="{{ url_for('static', filename = 'images/122.jpg') }}"
+                    alt="thumbnail"></a>
+            <div class="caption">
+                <h2>Lorem ipsum</h2>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
+                    non mi
+                    porta
+                    gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                    elit.</p>
+
+                <hr>
+                <p><a onclick="location.href='/appDetails'" class="btn">Next
+                    →</a>
+                </p>
+            </div>
+        </div>
+    </li>
+{% endblock %}

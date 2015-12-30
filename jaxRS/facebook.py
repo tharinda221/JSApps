@@ -5,13 +5,13 @@ from backend.social.facebook import *
 from flask_restful import Resource
 
 
-class authorize_facebook(Resource):
+class authorizeFacebook(Resource):
     def get(self):
         return flask.redirect("https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=publish_actions"
                               % (FACEBOOK_APP_ID, REDIRECT_URI))
 
 
-class handle_callback(Resource):
+class handleCallback(Resource):
     def get(self):
         global TOKENS
         global USER

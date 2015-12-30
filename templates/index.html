@@ -1,27 +1,16 @@
 {% extends "base.html" %}
 {% block title %}JsApps{% endblock %}
-{% block head %}
-    {{ super() }}
-    <style type="text/css">
-        .important {
-            color: #336699;
-        }
-    </style>
+{% block header %}
+    {% include "header.html" %}
 {% endblock %}
-{% block content %}
-    <h1>Wel Come</h1>
-    {% if authorized %}
-        <p class="important">
-            Welcome {% print(name) %}.
-            <img src="https://graph.facebook.com/{%print(id)%}/picture"/>
-        </p>
-    {% endif %}
-
-    {% if not authorized %}
-        <div id="login">
-            <button class="btn btn-default btn-lg" onclick="location.href='/authorize'">login</button>
-        </div>
-    {% endif %}
+{% block Links %}
+    {% include "Links.html" %}
+{% endblock %}
+{% block app %}
+    {% include "app.html" %}
+{% endblock %}
+{% block pagination %}
+    {% include "pagination.html" %}
 {% endblock %}
 {% block footer %}
     {% include 'footer.html' %}

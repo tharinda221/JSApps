@@ -9,8 +9,8 @@ class common:
 
 
 class facebook:
-    secretKey = "cb5fcc9d29666ecb06ef35f9bdeddc54"
-    appID = "1061202120578874"
-    GraphAPIVersion = "v2.4"
+    secretKey = "810caf413c4786364eb65172fed5a03c"
+    appID = "1672045909732059"
+    GraphAPIVersion = "v2.5"
     redirectURL = "http://" + host + ":" + str(port) + "/callback"
     getUserID = "https://graph.facebook.com/me?access_token="

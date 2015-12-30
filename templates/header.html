@@ -1,0 +1,28 @@
+{% block header %}
+    <div class="row">
+        {% block pageTitle %}
+            <div class="span3">
+                <a href="http://wbpreview.com/previews/WB0B014PP/index.html"><img
+                        src="{{ url_for('static', filename = 'images/logo.png') }}" alt="Tiles"></a>
+            </div>
+        {% endblock %}
+        {% block login %}
+            {% if not authorized %}
+                <div class="span9">
+                    <p class="pull-right">
+                        <a onclick="location.href='/authorize'"><img
+                                src="{{ url_for('static', filename = 'images/facebook-login-button.png') }}"></a>
+                    </p>
+                </div>
+            {% endif %}
+            {% if authorized %}
+                <div class="span9">
+                    <p class="pull-right">
+                        Hi , {% print(name) %}
+                        <img src="https://graph.facebook.com/{% print(id) %}/picture"></a>
+                    </p>
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}

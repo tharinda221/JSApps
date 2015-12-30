@@ -1,9 +1,12 @@
+
+
 __author__ = 'tharinda'
 
 # import classes
 from backend.common.Constants import *
 
 # import libraries
+import urllib
 from json import loads
 from urllib3 import HTTPSConnectionPool
 from urlparse import parse_qs
@@ -80,5 +83,21 @@ def getUserToken(code):
 
 def getUserInitInfo(accesstoken):
     url = facebook.getUserID + accesstoken
-    response = requests.get(url)
-    return response.json()
+    return json.load(urllib.urlopen(url))
+
+
+def getAllAlbums(accesstoken, uid):
+    url = "https://graph.facebook.com/" + uid + "/albums?access_token=" + accesstoken + ""
+    return json.load(urllib.urlopen(url))
+
+def getAlbumIdByName(accesstoken, uid, name):
+    response = getAllAlbums(accesstoken, uid)
+    for data in response["data"]:
+        if data["name"] == name:
+            return data["id"]
+    return "name not found"
+
+def getAlbumFromId(accesstoken, id):
+    url = "https://graph.facebook.com/v2.5/" + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
+          accesstoken + ""
+    return json.load(urllib.urlopen(url))
