@@ -4,7 +4,7 @@ __author__ = 'tharinda'
 
 # import classes
 from backend.common.Constants import *
-
+from backend.plainObjects.user import *
 # import libraries
 import urllib
 from json import loads
@@ -82,12 +82,20 @@ def getUserToken(code):
 
 
 def getUserInitInfo(accesstoken):
-    url = facebook.getUserID + accesstoken
-    return json.load(urllib.urlopen(url))
-
+    url = facebook.baseGraphApiUrl + facebook.getUserInitInfoUrl + "&access_token=" + \
+          accesstoken + ""
+    response = json.load(urllib.urlopen(url))
+    User.userId = response.get("id", "")
+    User.userName  = response.get("name", "")
+    User.email = response.get("email", "")
+    User.gender = response.get("gender", "")
+    User.birthDay = response.get("birthday", "")
+    User.hometown = response.get("hometown", "")
+    User.education = response.get("education", [])
+    User.about = response.get("about", "")
 
 def getAllAlbums(accesstoken, uid):
-    url = "https://graph.facebook.com/" + uid + "/albums?access_token=" + accesstoken + ""
+    url = facebook.baseGraphApiUrl + uid + "/albums?access_token=" + accesstoken + ""
     return json.load(urllib.urlopen(url))
 
 def getAlbumIdByName(accesstoken, uid, name):
@@ -98,6 +106,6 @@ def getAlbumIdByName(accesstoken, uid, name):
     return "name not found"
 
 def getAlbumFromId(accesstoken, id):
-    url = "https://graph.facebook.com/v2.5/" + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
+    url = facebook.baseGraphApiUrl + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
           accesstoken + ""
     return json.load(urllib.urlopen(url))

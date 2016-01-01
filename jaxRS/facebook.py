@@ -17,8 +17,7 @@ class handleCallback(Resource):
         global USER
         try:
             TOKENS["user_token"] = getUserToken(flask.request.args.get("code"))
-            USER["id"] = getUserInitInfo(TOKENS["user_token"])['id']
-            USER["name"] = getUserInitInfo(TOKENS["user_token"])['name']
+            getUserInitInfo(TOKENS["user_token"])
             return flask.redirect("/")
         except NotAuthorizedException:
             return 'Access was not granted or authorization failed', 403

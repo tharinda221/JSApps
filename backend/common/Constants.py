@@ -1,7 +1,6 @@
 from config import *
 
 TOKENS = {}
-USER = {"id": "", "name": ""}
 
 
 class common:
@@ -13,4 +12,6 @@ class facebook:
     appID = "1672045909732059"
     GraphAPIVersion = "v2.5"
     redirectURL = "http://" + host + ":" + str(port) + "/callback"
-    getUserID = "https://graph.facebook.com/me?access_token="
+    baseGraphApiUrl = "https://graph.facebook.com/v2.5/"
+    getUserInitInfoUrl = "me?fields=name,birthday,about,bio,email,education,gender," \
+                         "id,hometown"

@@ -1,0 +1,15 @@
+{
+  "App1": {
+    "data": [
+      {
+        "no" : 1 ,
+        "prediction": "Your destiny pulls you in the direction of independence, both in life and in the work force. You are strongly driven with high morals making you an excellent boss and strong member of your household. You should be careful of becoming too aggressive or violent as these traits can appear when the respect you feel you deserve is not given. Overall you can accomplish much in your life. You have the determination to do so. Ideal Job: Self employed business owner"
+      } ,
+      {
+        "no" : 2 ,
+        "prediction": "Your destiny pulls you in the direction of harmony. You are sensitive and peaceful, perceptive and passionate. You much be careful of your sensitivity. It may lead to your own hurt feelings. Do not be afraid to share your insights just because they may lead to a negative confrontation. You are destined for a happy life, being able to enjoy music, art and poetry. Ideal Job: Healer"
+      }
+
+    ]
+  }
+}

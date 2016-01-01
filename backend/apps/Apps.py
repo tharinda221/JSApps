@@ -3,14 +3,24 @@ import dateutil.parser as parser
 
 # import classes
 from jaxRS.facebook import *
+from backend.imageProcessing.operations import *
+import config
 
 
-def togetherAllProfilePicsByYear():
-    profileSourceArray = []
-    profilePicsArray = getAlbumFromId(TOKENS["user_token"],
-                                      getAlbumIdByName(TOKENS["user_token"], USER["id"], "Profile Pictures"))[
-        "data"]
-    for data in profilePicsArray:
-        if parser.parse(data["created_time"]).year == 2015:
-            profileSourceArray.append(data["source"])
-    print(profileSourceArray)
+class appsMethods(object):
+    def togetherAllProfilePicsByYear(self):
+        profileSourceArray = []
+        profilePicsArray = getAlbumFromId(TOKENS["user_token"],
+                                          getAlbumIdByName(TOKENS["user_token"], USER["id"], "Profile Pictures"))[
+            "data"]
+        for data in profilePicsArray:
+            if parser.parse(data["created_time"]).year == 2015:
+                profileSourceArray.append(data["source"])
+        print(profileSourceArray)
+
+    def PredictByBirthNumber(self):
+        BASE_DIR = config.BASE_DIR
+        DataPath = open(os.path.join(BASE_DIR, "JSApps/resources/", "appData.json"), "r")
+        data = json.load(DataPath)["App1"]["data"][0]["prediction"]
+        print("HERE")
+        writeTextToImage(data)
