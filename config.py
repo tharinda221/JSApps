@@ -9,3 +9,6 @@ configDataPath = open(os.path.join(BASE_DIR, "JSApps/configuration/", "config.js
 configData = json.load(configDataPath)
 host = configData["host"]
 port = configData["port"]
+database = configData["database"]
+databaseName = configData["databaseName"]
+AppsImagePath = BASE_DIR + "JSApps/static/images/appImages/"

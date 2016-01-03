@@ -1,4 +1,6 @@
 {
   "host" : "localhost" ,
-  "port" : 5000
+  "port" : 5000,
+  "database" : "http://localhost:8000",
+  "databaseName" : "JSApps"
 }

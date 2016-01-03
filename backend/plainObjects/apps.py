@@ -7,3 +7,5 @@ class Apps:
     AppResultImage = ""
     AppSocialName = ""
     AppComments = []
+    AppUsedCount = ""
+    AppCreatedTimeDate = ""

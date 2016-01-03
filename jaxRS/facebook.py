@@ -3,7 +3,7 @@ __author__ = 'tharinda'
 from backend.social.facebook import *
 # import libraries
 from flask_restful import Resource
-
+from backend.database.Operations import *
 
 class authorizeFacebook(Resource):
     def get(self):
@@ -18,6 +18,8 @@ class handleCallback(Resource):
         try:
             TOKENS["user_token"] = getUserToken(flask.request.args.get("code"))
             getUserInitInfo(TOKENS["user_token"])
+            #putUserData()
+
             return flask.redirect("/")
         except NotAuthorizedException:
             return 'Access was not granted or authorization failed', 403
