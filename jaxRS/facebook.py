@@ -11,7 +11,7 @@ class authorizeFacebook(Resource):
                               % (FACEBOOK_APP_ID, REDIRECT_URI))
 
 
-class handleCallback(Resource):
+class handleCallbackFacebook(Resource):
     def get(self):
         global TOKENS
         global USER

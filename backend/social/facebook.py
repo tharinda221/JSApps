@@ -1,5 +1,3 @@
-
-
 __author__ = 'tharinda'
 
 # import classes
@@ -85,18 +83,20 @@ def getUserInitInfo(accesstoken):
     url = facebook.baseGraphApiUrl + facebook.getUserInitInfoUrl + "&access_token=" + \
           accesstoken + ""
     response = json.load(urllib.urlopen(url))
-    User.userId = response.get("id", "")
-    User.userName  = response.get("name", "")
-    User.email = response.get("email", "")
-    User.gender = response.get("gender", "")
-    User.birthDay = response.get("birthday", "")
-    User.hometown = response.get("hometown", "")
-    User.education = response.get("education", [])
-    User.about = response.get("about", "")
+    User.facebook.userId = response.get("id", "")
+    User.facebook.userName = response.get("name", "")
+    User.facebook.email = response.get("email", "")
+    User.facebook.gender = response.get("gender", "")
+    User.facebook.birthDay = response.get("birthday", "")
+    User.facebook.hometown = response.get("hometown", "")
+    User.facebook.education = response.get("education", [])
+    User.facebook.about = response.get("about", "")
+
 
 def getAllAlbums(accesstoken, uid):
     url = facebook.baseGraphApiUrl + uid + "/albums?access_token=" + accesstoken + ""
     return json.load(urllib.urlopen(url))
+
 
 def getAlbumIdByName(accesstoken, uid, name):
     response = getAllAlbums(accesstoken, uid)
@@ -104,6 +104,7 @@ def getAlbumIdByName(accesstoken, uid, name):
         if data["name"] == name:
             return data["id"]
     return "name not found"
+
 
 def getAlbumFromId(accesstoken, id):
     url = facebook.baseGraphApiUrl + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \

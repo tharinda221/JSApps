@@ -13,8 +13,8 @@ class main(Resource):
         global TOKENS
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('index.html', authorized=userAuthorized, id=User.userId,
-                                             name=User.userName), 200, headers)
+        return make_response(render_template('index.html', authorized=userAuthorized, id=User.facebook.userId,
+                                             name=User.facebook.userName), 200, headers)
 
 
 class appDetails(Resource):
@@ -22,5 +22,5 @@ class appDetails(Resource):
         global TOKENS
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('AppDetails.html', authorized=userAuthorized, id=User.userId,
-                                             name=User.userName), 200, headers)
+        return make_response(render_template('AppDetails.html', authorized=userAuthorized, id=User.facebook.userId,
+                                             name=User.facebook.userName), 200, headers)

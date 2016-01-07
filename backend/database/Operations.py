@@ -1,94 +1,86 @@
 # import libraries
-from __future__ import print_function
-import boto3
-import json
-import decimal
+import datetime
 
 # import classes
 from backend.plainObjects.user import *
 from backend.plainObjects.apps import *
-from backend.database.connection import *
-import config
-
-# Helper class to convert a DynamoDB item to JSON.
-class DecimalEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, decimal.Decimal):
-            if o % 1 > 0:
-                return float(o)
-            else:
-                return int(o)
-        return super(DecimalEncoder, self).default(o)
+from backend.database.getDatabase import *
+from backend.common.Constants import *
 
 
-def putUserData():
-    connection = getConnection()
-
-    table = connection.Table('Users')
-
-    userId = User.userId
-    userName = User.userName
-    gender = User.gender
-    birthDay = User.birthDay
-    hometown = User.hometown
-    email = User.email
-    education = User.education
-    about = User.about
-
-    response = table.put_item(
-            Item={
-                'userId': userId,
-                'userName': userName,
-                'gender': gender,
-                'birthDay': birthDay,
-                'hometown': hometown,
-                'email': email,
-                'education': education,
-                'about': about,
+def putFacebookUserData():
+    result = databaseOperations.userFBCollectionName.insert_one(
+            {
+                "userId": User.facebook.userId,
+                "userName": User.facebook.userName,
+                "gender": User.facebook.gender,
+                "birthday": User.facebook.birthDay,
+                "hometown": User.facebook.hometown,
+                "email": User.facebook.email,
+                "education": User.facebook.education,
+                "about": User.facebook.about
             }
     )
+    print(result.inserted_id)
 
-    print("PutItem succeeded:")
-    print(json.dumps(response, indent=4, cls=DecimalEncoder))
-def putAppsData():
-    connection = getConnection()
 
-    table = connection.Table('Apps')
+def putTwitterUserData():
+    result = databaseOperations.userFBCollectionName.insert_one(
+            {
+                "userId": User.twitter.userId,
+                "userScreenName": User.twitter.userScreenName,
+                "userName": User.twitter.userName,
+                "gender": User.twitter.gender,
+                "birthday": User.twitter.birthday,
+                "bio": User.twitter.bio,
+                "email": User.twitter.email,
+                "phoneNumber": User.twitter.phoneNumber
 
-    # AppID = Apps.AppID
-    # AppName = Apps.AppName
-    # AppMethodName = Apps.AppMethodName
-    # AppImage = Apps.AppImage
-    # AppSourceImage = Apps.AppSourceImage
-    # AppResultImage = Apps.AppResultImage
-    # AppSocialName = Apps.AppSocialName
-    # AppComments = Apps.AppComments
-    # AppUsedCount = Apps.AppUsedCount
-    # AppCreatedTimeDate = Apps.AppCreatedTimeDate
-    AppID = "1"
-    AppName = "Image show"
-    AppMethodName = "ImageShow"
-    AppImage = config.AppsImagePath + "App1/app1.jpg"
-    AppSourceImage = config.AppsImagePath + "App1/App1In.jpg"
-    AppResultImage = config.AppsImagePath + "App1/App1Out.jpg"
-    AppSocialName = "facebook"
-    AppComments = []
-    AppUsedCount = 0
-    AppCreatedTimeDate = "2016.1.1"
-
-    response = table.put_item(
-            Item={
-                'AppID': AppID,
-                'AppCreatedTimeDate': AppCreatedTimeDate,
-                'AppMethodName': AppMethodName,
-                'AppImage': AppImage,
-                'AppSourceImage': AppSourceImage,
-                'AppResultImage': AppResultImage,
-                'AppSocialName': AppSocialName,
-                'AppComments': AppComments,
-                'AppUsedCount': AppUsedCount,
-                'AppName': AppName
             }
     )
-    print("PutItem succeeded:")
-    print(json.dumps(response, indent=4, cls=DecimalEncoder))
+    print(result.inserted_id)
+
+
+def putFacebookAppsData(id):
+    databaseOperations.facebookAppsCollectionName.insert(
+            {
+                "AppID": id,
+                "AppName": "TestApp",
+                "AppMethodName": "TestMethod",
+                "AppImage": "images/appImages/app1/test.jpg",
+                "AppSourceImage": "images/appImages/facebook/app1/testSource.jpg",
+                "AppResultImage": "images/appImages/facebook/app1/testResult.jpg",
+                "AppComments": [],
+                "AppUsedCount": 0,
+                "AppCreatedTime": datetime.datetime.utcnow()
+            }
+    )
+    print("Inserted")
+
+
+def putTwitterAppsData():
+    databaseOperations.twitterAppsCollectionName.insert(
+            {
+                "AppID": 1,
+                "AppName": "TestApp",
+                "AppMethodName": "TestMethod",
+                "AppImage": "images/appImages/app1/test.jpg",
+                "AppSourceImage": "images/appImages/twitter/app1/testSource.jpg",
+                "AppResultImage": "images/appImages/twitter/app1/testResult.jpg",
+                "AppComments": [],
+                "AppUsedCount": 0,
+                "AppCreatedTime": datetime.datetime.utcnow()
+            }
+    )
+    print("Inserted")
+
+
+def rowCount(dbCollection):
+    return dbCollection.count()
+
+def numberOfFacebookAppPages():
+    total = rowCount(databaseOperations.facebookAppsCollectionName)
+    if( total % 6 == 0):
+        return (total - ( total % 6) ) / 6
+    else:
+        return (total - ( total % 6) ) / 6 +1

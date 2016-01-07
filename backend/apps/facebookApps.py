@@ -8,7 +8,7 @@ from backend.plainObjects.user import *
 import config
 
 
-class appsMethods(object):
+class facebookAppsMethods(object):
     def togetherAllProfilePicsByYear(self):
         profileSourceArray = []
         profilePicsArray = getAlbumFromId(TOKENS["user_token"],
@@ -25,3 +25,11 @@ class appsMethods(object):
         data = json.load(DataPath)["App1"]["data"][0]["prediction"]
         print("HERE")
         writeTextToImage(data)
+
+    def TestMethod(self):
+        print("Method Accessed")
+
+
+class twitterAppsMethods(object):
+    def TestMethod(self):
+        print("Method Accessed")

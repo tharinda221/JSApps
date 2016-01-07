@@ -1,6 +1,6 @@
 {
   "host" : "localhost" ,
   "port" : 5000,
-  "database" : "http://localhost:8000",
+  "database" : "mongodb://localhost:27017/",
   "databaseName" : "JSApps"
 }
