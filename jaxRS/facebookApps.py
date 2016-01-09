@@ -18,9 +18,10 @@ class runApplication(Resource):
         if not method:
             raise Exception("Method %s not implemented" % method_name)
         method()
+        print "Finished"
         global TOKENS
         obj = getAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('AppDetails.html', authorized=userAuthorized, id=User.facebook.userId,
+        return make_response(render_template('AppFinished.html', authorized=userAuthorized, id=User.facebook.userId,
                                              name=User.facebook.userName, appDetails=obj), 200, headers)

@@ -1,10 +1,10 @@
 {% block Links %}
     <div class="span12">
         <ul class="nav nav-pills">
-            <li class="active"><a href="http://wbpreview.com/previews/WB0B014PP/index.html">Facebook</a>
+            <li class="active"><a href="{{ request.url }}">Facebook</a>
             </li>
-            <li><a href="http://wbpreview.com/previews/WB0B014PP/index.html">Twitter</a></li>
-            <li><a href="http://wbpreview.com/previews/WB0B014PP/index.html">About</a></li>
+            <li><a href="{{ request.url }}twitter">Twitter</a></li>
+            <li><a href="{{ request.url }}about">About</a></li>
         </ul>
     </div>
 {% endblock %}

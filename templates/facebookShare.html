@@ -1,0 +1,7 @@
+{% block facebookShare %}
+    <div class="thumbnail">
+        <a onclick="location.href='/authorize/facebook?redirect={{ request.url }}'"><img
+                src="{{ url_for('static', filename='images/common/ShareOnFacebook.png') }}" alt="thumbnail"></a>
+
+    </div>
+{% endblock %}

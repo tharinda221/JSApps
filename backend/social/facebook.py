@@ -20,6 +20,7 @@ FACEBOOK_APP_ID = facebook.appID
 FACEBOOK_APP_SECRET = facebook.secretKey
 GRAPH_API_VERSION = facebook.GraphAPIVersion
 REDIRECT_URI = facebook.redirectURL
+returnURL = facebook.returnURL
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 requests.packages.urllib3.disable_warnings()

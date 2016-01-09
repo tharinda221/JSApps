@@ -12,8 +12,11 @@
         {% block appDetails %}
             <div class="row">
                 <div class="span9" id="content">
-                    {% block appDetailContent %}
-                        {% include "appDetailContent.html" %}
+                    {% block appFinishedContent %}
+                        {% include "appFinishedContent.html" %}
+                    {% endblock %}
+                    {% block facebookShare %}
+                        {% include "facebookShare.html" %}
                     {% endblock %}
                     {% block comment %}
                         {% include "comment.html" %}

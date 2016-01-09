@@ -29,6 +29,7 @@ class facebook:
     baseGraphApiUrl = "https://graph.facebook.com/v2.5/"
     getUserInitInfoUrl = "me?fields=name,birthday,about,bio,email,education,gender," \
                          "id,hometown"
+    returnURL = ""
 
 
 class twitter:

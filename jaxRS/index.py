@@ -8,7 +8,7 @@ from backend.frontEndOperaions.indexOperations import *
 from flask import Flask, make_response, render_template
 
 
-# app = Flask(__name__)
+#app = Flask(__name__)
 
 class main(Resource):
     def get(self):
