@@ -9,7 +9,7 @@ from backend.common.Constants import *
 
 
 def putFacebookUserData():
-    result = databaseOperations.userFBCollectionName.insert_one(
+    result = databaseCollections.userFBCollectionName.insert_one(
             {
                 "userId": User.facebook.userId,
                 "userName": User.facebook.userName,
@@ -25,7 +25,7 @@ def putFacebookUserData():
 
 
 def putTwitterUserData():
-    result = databaseOperations.userFBCollectionName.insert_one(
+    result = databaseCollections.userFBCollectionName.insert_one(
             {
                 "userId": User.twitter.userId,
                 "userScreenName": User.twitter.userScreenName,
@@ -42,7 +42,7 @@ def putTwitterUserData():
 
 
 def putFacebookAppsData(id):
-    databaseOperations.facebookAppsCollectionName.insert(
+    databaseCollections.facebookAppsCollectionName.insert(
             {
                 "AppID": id,
                 "AppName": "TestApp",
@@ -59,7 +59,7 @@ def putFacebookAppsData(id):
 
 
 def putTwitterAppsData():
-    databaseOperations.twitterAppsCollectionName.insert(
+    databaseCollections.twitterAppsCollectionName.insert(
             {
                 "AppID": 1,
                 "AppName": "TestApp",
@@ -78,9 +78,25 @@ def putTwitterAppsData():
 def rowCount(dbCollection):
     return dbCollection.count()
 
+
+def NumberOfFacebookApps():
+    return rowCount(databaseCollections.facebookAppsCollectionName)
+
+
 def numberOfFacebookAppPages():
-    total = rowCount(databaseOperations.facebookAppsCollectionName)
-    if( total % 6 == 0):
-        return (total - ( total % 6) ) / 6
+    total = NumberOfFacebookApps()
+    if total % common.numOfAppsPerPage == 0:
+        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage
     else:
-        return (total - ( total % 6) ) / 6 +1
+        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage + 1
+def getAppDetailsById(Id):
+    document = databaseCollections.facebookAppsCollectionName.find({"AppID": Id})
+    obj = Apps(appid=document[0]["AppID"],
+               appname=document[0]["AppName"],
+               appmethodname=document[0]["AppMethodName"],
+               appimage=document[0]["AppImage"],
+               appresultimage=document[0]["AppResultImage"],
+               appsourceimage=document[0]["AppSourceImage"],
+               appcomments=document[0]["AppComments"],
+               appusedcount=document[0]["AppUsedCount"])
+    return obj

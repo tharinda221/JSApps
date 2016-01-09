@@ -1,5 +1,11 @@
 from config import *
 from backend.database.getDatabase import *
+
+
+def __init__(self):
+    pass
+
+
 TOKENS = {}
 twitterTokens = {"OAUTH_TOKEN": "", "OAUTH_TOKEN_SECRET": ""}
 
@@ -9,6 +15,7 @@ class common:
         pass
 
     ApplicationSecret = ""
+    numOfAppsPerPage = 8
 
 
 class facebook:
@@ -40,7 +47,7 @@ class twitter:
     screen_name = ""
 
 
-class databaseOperations:
+class databaseCollections:
     def __init__(self):
         pass
 

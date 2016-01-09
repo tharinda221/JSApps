@@ -1,12 +1,14 @@
 __author__ = 'tharinda'
 # import classes
 from backend.social.facebook import *
+from flask import request
 # import libraries
 from flask_restful import Resource
 from backend.database.Operations import *
 
 class authorizeFacebook(Resource):
     def get(self):
+        print request.url_rule
         return flask.redirect("https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=publish_actions"
                               % (FACEBOOK_APP_ID, REDIRECT_URI))
 
