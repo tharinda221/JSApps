@@ -41,7 +41,7 @@ class facebook(Resource):
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/index.html', authorized=userAuthorized, id=facebookUserObj.userId,
+            render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
                             name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                             facebookPageNum=1, pageAppList=list),
             200, headers)
@@ -56,7 +56,7 @@ class getFacebookPage(Resource):
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/index.html', authorized=userAuthorized, id=facebookUserObj.userId,
+            render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
                             name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                             facebookPageNum=pageNum, pageAppList=list),
             200, headers)
@@ -70,5 +70,5 @@ class getFacebookApp(Resource):
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/AppDetails.html', authorized=userAuthorized, id=facebookUserObj.userId,
+            render_template('facebook/facebookAppDetails.html', authorized=userAuthorized, id=facebookUserObj.userId,
                             name=facebookUserObj.userName, appDetails=obj), 200, headers)

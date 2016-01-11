@@ -1,28 +1,19 @@
-{% block header %}
-    <div class="row">
-        {% block pageTitle %}
-            <div class="span3">
-                <a onclick="location.href=''"><img
-                        src="{{ url_for('static', filename = 'images/logo.png') }}" alt="Tiles"></a>
-            </div>
-        {% endblock %}
-        {% block login %}
-            {% if not TwitterAuthorized %}
-                <div class="span9">
-                    <p class="pull-right">
-                        <a onclick="location.href='/authorize/twitter?redirect={{ request.url }}'"><img
-                                src="{{ url_for('static', filename = 'images/common/loginTwitter.png') }}"></a>
-                    </p>
-                </div>
-            {% endif %}
-            {% if TwitterAuthorized %}
-                <div class="span9">
-                    <p class="pull-right">
-                        Hi , {{ name }}
-                        <img src="{{ profilePicture }}"></a>
-                    </p>
-                </div>
-            {% endif %}
-        {% endblock %}
-    </div>
+{% extends "header.html" %}
+{% block login %}
+    {% if not TwitterAuthorized %}
+        <div class="span9">
+            <p class="pull-right">
+                <a onclick="location.href='/authorize/twitter?redirect={{ request.url }}'"><img
+                        src="{{ url_for('static', filename = 'images/common/loginTwitter.png') }}"></a>
+            </p>
+        </div>
+    {% endif %}
+    {% if TwitterAuthorized %}
+        <div class="span9">
+            <p class="pull-right">
+                Hi , {{ name }}
+                <img src="{{ profilePicture }}"></a>
+            </p>
+        </div>
+    {% endif %}
 {% endblock %}

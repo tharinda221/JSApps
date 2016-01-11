@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-{% block title %}JsApps{% endblock %}
+{% extends "index.html" %}
 {% block header %}
     {% include "twitter/twitterHeader.html" %}
 {% endblock %}
@@ -7,11 +6,8 @@
     {% include "twitter/twitterLinks.html" %}
 {% endblock %}
 {% block app %}
-    {% include "twitter/Twitterapp.html" %}
+    {% include "twitter/twitterApp.html" %}
 {% endblock %}
 {% block pagination %}
-    {% include "twitter/Twitterpagination.html" %}
-{% endblock %}
-{% block footer %}
-    {% include 'footer.html' %}
+    {% include "twitter/twitterpagination.html" %}
 {% endblock %}

@@ -1,0 +1,6 @@
+{% extends "pagination.html" %}
+{% block numbersDisplay %}
+    {% for pageNumber in range(1,noOfAppsPagesFacebook) %}
+        <a href="{{ url_for('/facebook', pageNum=pageNumber) }}">{{ pageNumber }}</a>
+    {% endfor %}
+{% endblock %}

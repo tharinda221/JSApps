@@ -1,0 +1,10 @@
+{% extends "pagination.html" %}
+{% block numbersDisplay %}
+
+    {#        <li><a href="http://wbpreview.com/previews/WB0B014PP/#">Prev</a></li>#}
+
+    {% for pageNumber in range(1,noOfAppsPagesTwitter) %}
+        <a href="{{ url_for('/twitter', pageNum=pageNumber) }}">{{ pageNumber }}</a>
+    {% endfor %}
+    {#        <li><a href="http://wbpreview.com/previews/WB0B014PP/#">Next</a></li>#}
+{% endblock %}

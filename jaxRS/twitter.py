@@ -62,7 +62,7 @@ class twitter(Resource):
         list = getAppList(startId, endId, TwitterAppList, "twitter")
         headers = {'Content-Type': 'text/html'}
         twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
-        return make_response(render_template('twitter/TwitterPage.html', TwitterAuthorized=twitterUserAuthorized,
+        return make_response(render_template('twitter/twitterPage.html', TwitterAuthorized=twitterUserAuthorized,
                                              profilePicture=twitterObj.profileImage,
                                              name=twitterObj.userName, noOfAppsPagesTwitter=noOfAppsPagesTwitter,
                                              twitterPageNum=1, pageTwitterAppList=list),
@@ -78,7 +78,7 @@ class getTwitterPage(Resource):
         headers = {'Content-Type': 'text/html'}
         twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
         return make_response(
-                render_template('twitter/TwitterPage.html', TwitterAuthorized=twitterUserAuthorized,
+                render_template('twitter/twitterPage.html', TwitterAuthorized=twitterUserAuthorized,
                                 profilePicture=twitterObj.profileImage,
                                 name=twitterObj.userName, noOfAppsPagesTwitter=noOfAppsPagesTwitter,
                                 twitterPageNum=1, pageTwitterAppList=list),

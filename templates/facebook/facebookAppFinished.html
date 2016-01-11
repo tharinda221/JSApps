@@ -4,16 +4,16 @@
 {% block content %}
     <div class="container">
         {% block header %}
-            {% include "facebook/header.html" %}
+            {% include "facebook/facebookHeader.html" %}
         {% endblock %}
         {% block Links %}
-            {% include "facebook/Links.html" %}
+            {% include "facebook/facebookLinks.html" %}
         {% endblock %}
         {% block appDetails %}
             <div class="row">
                 <div class="span9" id="content">
                     {% block appFinishedContent %}
-                        {% include "facebook/appFinishedContent.html" %}
+                        {% include "facebook/facebookAppFinishedContent.html" %}
                     {% endblock %}
                     {% block facebookShare %}
                         {% include "facebookShare.html" %}

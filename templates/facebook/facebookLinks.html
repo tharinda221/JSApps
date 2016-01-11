@@ -1,0 +1,7 @@
+{% extends "links.html" %}
+{% block linkBlock %}
+    <li class="active"><a href="{{ request.url }}">Facebook</a>
+    </li>
+    <li><a href="{{ url_for('/twitter') }}">Twitter</a></li>
+    <li><a href="{{ request.url }}about">About</a></li>
+{% endblock %}
