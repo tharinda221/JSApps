@@ -46,6 +46,7 @@ class twitter:
     resource_owner_key = ""
     resource_owner_secret = ""
     screen_name = ""
+    returnURL = ""
 
 
 class databaseCollections:

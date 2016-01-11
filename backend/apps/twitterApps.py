@@ -2,5 +2,5 @@
 from backend.social.twitter import *
 
 def printUserInfo():
-    resp = getUserDetails()
+    resp = getTwitterUserDetails()
     print(resp)

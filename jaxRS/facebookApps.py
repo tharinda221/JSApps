@@ -12,7 +12,7 @@ runApplicaions = facebookAppsMethods()
 
 class runApplication(Resource):
     def get(self, appId):
-        obj = getAppDetailsById(appId)
+        obj = getFacebookAppDetailsById(appId)
         method_name = obj.AppMethodName
         method = getattr(runApplicaions, method_name)
         if not method:
@@ -20,7 +20,7 @@ class runApplication(Resource):
         method()
         print "Finished"
         global TOKENS
-        obj = getAppDetailsById(appId)
+        obj = getFacebookAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(render_template('AppFinished.html', authorized=userAuthorized, id=User.facebook.userId,

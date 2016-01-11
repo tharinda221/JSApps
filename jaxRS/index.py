@@ -8,14 +8,14 @@ from backend.frontEndOperaions.indexOperations import *
 from flask import Flask, make_response, render_template
 
 
-#app = Flask(__name__)
+# app = Flask(__name__)
 
 class main(Resource):
     def get(self):
         global TOKENS
         global noOfAppsPagesFacebook
         startId, endId = facebookAppStartIdAndEndId(1)
-        list = getAppList(startId, endId)
+        list = getFacebookAppList(startId, endId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(render_template('index.html', authorized=userAuthorized, id=User.facebook.userId,
@@ -24,12 +24,12 @@ class main(Resource):
                              200, headers)
 
 
-class getPage(Resource):
+class getFacebookPage(Resource):
     def get(self, pageNum):
         global TOKENS
         global noOfAppsPagesFacebook
         startId, endId = facebookAppStartIdAndEndId(pageNum)
-        list = getAppList(startId, endId)
+        list = getFacebookAppList(startId, endId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(render_template('index.html', authorized=userAuthorized, id=User.facebook.userId,
@@ -41,7 +41,7 @@ class getPage(Resource):
 class getFacebookApp(Resource):
     def get(self, appId):
         global TOKENS
-        obj = getAppDetailsById(appId)
+        obj = getFacebookAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(render_template('AppDetails.html', authorized=userAuthorized, id=User.facebook.userId,

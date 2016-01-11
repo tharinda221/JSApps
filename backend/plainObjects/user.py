@@ -14,17 +14,21 @@ class User:
         email = ""
         education = []
         about = ""
+        country = ""
 
-    class twitter:
-        def __init__(self):
-            pass
-
-        userId = ""
-        userScreenName = ""
-        userName = ""
-        gender = ""
-        birthday = ""
-        bio = ""
-        email = ""
-        phoneNumber = ""
-
+    class twitterUser(object):
+        def __init__(self, userId="",
+                     userScreenName="",
+                     userName="",
+                     geoLocation="",
+                     country="",
+                     userDescription="",
+                     profileImage=""
+                     ):
+            self.userDescription = userDescription
+            self.profileImage = profileImage
+            self.geoLocation = geoLocation
+            self.country = country
+            self.userName = userName
+            self.userScreenName = userScreenName
+            self.userId = userId

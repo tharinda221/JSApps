@@ -24,27 +24,39 @@ def putFacebookUserData():
     print(result.inserted_id)
 
 
-def putTwitterUserData():
-    result = databaseCollections.userFBCollectionName.insert_one(
+def putTwitterUserData(userId,
+                       userScreenName,
+                       userName,
+                       geoLocation,
+                       country,
+                       userDescription,
+                       profileImage
+                       ):
+    databaseCollections.userTwitterCollectionName.insert_one(
             {
-                "userId": User.twitter.userId,
-                "userScreenName": User.twitter.userScreenName,
-                "userName": User.twitter.userName,
-                "gender": User.twitter.gender,
-                "birthday": User.twitter.birthday,
-                "bio": User.twitter.bio,
-                "email": User.twitter.email,
-                "phoneNumber": User.twitter.phoneNumber
-
+                "userId": userId,
+                "userScreenName": userScreenName,
+                "userName": userName,
+                "geoLocation": geoLocation,
+                "country": country,
+                "userDescription": userDescription,
+                "profileImage": profileImage
             }
     )
-    print(result.inserted_id)
+    print("Inserted tiwtterUser data")
 
 
-def putFacebookAppsData(id):
+def getTwitterUserAvailability(userScreenName):
+    if databaseCollections.userTwitterCollectionName.find({'userScreenName': userScreenName }).count() > 0:
+        return False
+    else:
+        return True
+
+
+def putFacebookAppsData():
     databaseCollections.facebookAppsCollectionName.insert(
             {
-                "AppID": id,
+                "AppID": 1,
                 "AppName": "TestApp",
                 "AppMethodName": "TestMethod",
                 "AppImage": "images/appImages/app1/test.jpg",
@@ -89,14 +101,41 @@ def numberOfFacebookAppPages():
         return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage
     else:
         return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage + 1
-def getAppDetailsById(Id):
+
+
+def getFacebookAppDetailsById(Id):
     document = databaseCollections.facebookAppsCollectionName.find({"AppID": Id})
-    obj = Apps(appid=document[0]["AppID"],
-               appname=document[0]["AppName"],
-               appmethodname=document[0]["AppMethodName"],
-               appimage=document[0]["AppImage"],
-               appresultimage=document[0]["AppResultImage"],
-               appsourceimage=document[0]["AppSourceImage"],
-               appcomments=document[0]["AppComments"],
-               appusedcount=document[0]["AppUsedCount"])
+    obj = facebookApps(appid=document[0]["AppID"],
+                       appname=document[0]["AppName"],
+                       appmethodname=document[0]["AppMethodName"],
+                       appimage=document[0]["AppImage"],
+                       appresultimage=document[0]["AppResultImage"],
+                       appsourceimage=document[0]["AppSourceImage"],
+                       appcomments=document[0]["AppComments"],
+                       appusedcount=document[0]["AppUsedCount"])
+    return obj
+
+
+def NumberOfTwitterApps():
+    return rowCount(databaseCollections.twitterAppsCollectionName)
+
+
+def numberOfTwitterAppPages():
+    total = NumberOfTwitterApps()
+    if total % common.numOfAppsPerPage == 0:
+        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage
+    else:
+        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage + 1
+
+
+def getTwitterAppDetailsById(Id):
+    document = databaseCollections.twitterAppsCollectionName.find({"AppID": Id})
+    obj = twitterApps(appid=document[0]["AppID"],
+                      appname=document[0]["AppName"],
+                      appmethodname=document[0]["AppMethodName"],
+                      appimage=document[0]["AppImage"],
+                      appresultimage=document[0]["AppResultImage"],
+                      appsourceimage=document[0]["AppSourceImage"],
+                      appcomments=document[0]["AppComments"],
+                      appusedcount=document[0]["AppUsedCount"])
     return obj

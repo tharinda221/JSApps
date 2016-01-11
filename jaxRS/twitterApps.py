@@ -8,4 +8,4 @@ from flask_restful import Resource
 
 class getTwitterUserDetails(Resource):
     def get(self):
-        return getUserDetails()
+        return getTwitterUserDetails()
