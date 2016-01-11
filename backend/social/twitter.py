@@ -8,8 +8,8 @@ import requests
 from requests_oauthlib import OAuth1
 from urlparse import parse_qs
 
-CONSUMER_KEY = twitter.CONSUMER_KEY
-CONSUMER_SECRET = twitter.CONSUMER_SECRET
+CONSUMER_KEY = twitterConstants.CONSUMER_KEY
+CONSUMER_SECRET = twitterConstants.CONSUMER_SECRET
 twitterObj = User.twitterUser()
 
 
@@ -24,27 +24,27 @@ def getUserToken(verifier, resource_owner_key, resource_owner_secret):
                    resource_owner_key=resource_owner_key,
                    resource_owner_secret=resource_owner_secret,
                    verifier=verifier)
-    r = requests.post(url=twitter.ACCESS_TOKEN_URL, auth=oauth)
+    r = requests.post(url=twitterConstants.ACCESS_TOKEN_URL, auth=oauth)
     credentials = parse_qs(r.content)
     twitterTokens["twitterToken"] = credentials.get('oauth_token')[0]
     twitterTokens["twitterSecret"] = credentials.get('oauth_token_secret')[0]
-    twitter.screen_name = credentials.get('screen_name')[0]
+    twitterConstants.screen_name = credentials.get('screen_name')[0]
 
 
 def getTwitterUserDetails():
-    twitterAgent = Twython(twitter.CONSUMER_KEY, twitter.CONSUMER_SECRET, twitterTokens["twitterToken"],
+    twitterAgent = Twython(twitterConstants.CONSUMER_KEY, twitterConstants.CONSUMER_SECRET, twitterTokens["twitterToken"],
                            twitterTokens["twitterSecret"])
-    resp = twitterAgent.verify_credentials(screen_name=twitter.screen_name)
+    resp = twitterAgent.verify_credentials(screen_name=twitterConstants.screen_name)
     global twitterObj
     twitterObj = User.twitterUser(resp["id_str"],
-                                  twitter.screen_name,
+                                  twitterConstants.screen_name,
                                   resp["name"],
                                   resp.get("geo", ""),
                                   resp.get("country", ""),
                                   resp["description"],
                                   resp['profile_image_url']
                                   )
-    if getTwitterUserAvailability(twitter.screen_name):
+    if getTwitterUserAvailability(twitterConstants.screen_name):
         putTwitterUserData(userId=twitterObj.userId,
                            userScreenName=twitterObj.userScreenName,
                            userName=twitterObj.userName,

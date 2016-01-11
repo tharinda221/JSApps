@@ -18,7 +18,7 @@ class common:
     numOfAppsPerPage = 8
 
 
-class facebook:
+class facebookConstants:
     def __init__(self):
         pass
 
@@ -32,7 +32,7 @@ class facebook:
     returnURL = ""
 
 
-class twitter:
+class twitterConstants:
     def __init__(self):
         pass
 

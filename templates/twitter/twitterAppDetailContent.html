@@ -1,0 +1,24 @@
+{% block appDetailContent %}
+    <ul class="thumbnails">
+        <li class="span9">
+            <div class="thumbnail">
+                {% if TwitterAuthorized %}
+                    <a onclick="location.href='/twitter/runApplication/{{ appDetails.AppID }}'"><img
+                            src="{{ url_for('static', filename='' + appDetails.AppSourceImage) }}" alt="thumbnail"></a>
+                {% else %}
+                    <a onclick="location.href='/authorize/twitter?redirect={{ request.url }}'"><img
+                            src="{{ url_for('static', filename='images/common/twitterLoginLarge.jpg') }}" alt="thumbnail"></a>
+                {% endif %}
+                {#                <div class="caption">#}
+                {#                    <h2>Lorem ipsum</h2>#}
+                {#                    <p class="post-date">19th July 2012</p>#}
+                {#                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit#}
+                {#                        non mi#}
+                {#                        porta#}
+                {#                        gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id#}
+                {#                        elit.</p>#}
+                {#                </div>#}
+            </div>
+        </li>
+    </ul>
+{% endblock %}

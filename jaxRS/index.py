@@ -12,37 +12,4 @@ from flask import Flask, make_response, render_template
 
 class main(Resource):
     def get(self):
-        global TOKENS
-        global noOfAppsPagesFacebook
-        startId, endId = facebookAppStartIdAndEndId(1)
-        list = getFacebookAppList(startId, endId)
-        headers = {'Content-Type': 'text/html'}
-        userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('index.html', authorized=userAuthorized, id=User.facebook.userId,
-                                             name=User.facebook.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
-                                             facebookPageNum=1, pageAppList=list),
-                             200, headers)
-
-
-class getFacebookPage(Resource):
-    def get(self, pageNum):
-        global TOKENS
-        global noOfAppsPagesFacebook
-        startId, endId = facebookAppStartIdAndEndId(pageNum)
-        list = getFacebookAppList(startId, endId)
-        headers = {'Content-Type': 'text/html'}
-        userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('index.html', authorized=userAuthorized, id=User.facebook.userId,
-                                             name=User.facebook.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
-                                             facebookPageNum=pageNum, pageAppList=list),
-                             200, headers)
-
-
-class getFacebookApp(Resource):
-    def get(self, appId):
-        global TOKENS
-        obj = getFacebookAppDetailsById(appId)
-        headers = {'Content-Type': 'text/html'}
-        userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('AppDetails.html', authorized=userAuthorized, id=User.facebook.userId,
-                                             name=User.facebook.userName, appDetails=obj), 200, headers)
+        return flask.redirect('/facebook')

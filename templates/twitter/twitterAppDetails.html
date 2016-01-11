@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}JsApps{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% block header %}
+            {% include "twitter/twitterHeader.html" %}
+        {% endblock %}
+        {% block Links %}
+            {% include "twitter/twitterLinks.html" %}
+        {% endblock %}
+        {% block appDetails %}
+            <div class="row">
+                <div class="span9" id="content">
+                    {% block appDetailContent %}
+                        {% include "twitter/twitterAppDetailContent.html" %}
+                    {% endblock %}
+                    {% block comment %}
+                        {% include "comment.html" %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+        {% block footer %}
+            {% include 'footer.html' %}
+        {% endblock %}
+    </div>
+{% endblock %}

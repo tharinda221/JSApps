@@ -28,8 +28,3 @@ class facebookAppsMethods(object):
 
     def TestMethod(self):
         print("Method Accessed")
-
-
-class twitterAppsMethods(object):
-    def TestMethod(self):
-        print("Method Accessed")

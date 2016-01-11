@@ -1,6 +1,6 @@
 # import libraries
 import datetime
-
+from bson.objectid import ObjectId
 # import classes
 from backend.plainObjects.user import *
 from backend.plainObjects.apps import *
@@ -8,20 +8,27 @@ from backend.database.getDatabase import *
 from backend.common.Constants import *
 
 
-def putFacebookUserData():
-    result = databaseCollections.userFBCollectionName.insert_one(
+def putFacebookUserData(userId,
+                        userName,
+                        gender,
+                        birthDay,
+                        hometown,
+                        email,
+                        education,
+                        about):
+    databaseCollections.userFBCollectionName.insert_one(
             {
-                "userId": User.facebook.userId,
-                "userName": User.facebook.userName,
-                "gender": User.facebook.gender,
-                "birthday": User.facebook.birthDay,
-                "hometown": User.facebook.hometown,
-                "email": User.facebook.email,
-                "education": User.facebook.education,
-                "about": User.facebook.about
+                "userId": userId,
+                "userName": userName,
+                "gender": gender,
+                "birthday": birthDay,
+                "hometown": hometown,
+                "email": email,
+                "education": education,
+                "about": about
             }
     )
-    print(result.inserted_id)
+    print("Inserted facebookUser data")
 
 
 def putTwitterUserData(userId,
@@ -43,11 +50,18 @@ def putTwitterUserData(userId,
                 "profileImage": profileImage
             }
     )
-    print("Inserted tiwtterUser data")
+    print("Inserted twitterUser data")
+
+
+def getFacebookUserAvailability(userId):
+    if databaseCollections.userFBCollectionName.find({'userId': userId}).count() > 0:
+        return False
+    else:
+        return True
 
 
 def getTwitterUserAvailability(userScreenName):
-    if databaseCollections.userTwitterCollectionName.find({'userScreenName': userScreenName }).count() > 0:
+    if databaseCollections.userTwitterCollectionName.find({'userScreenName': userScreenName}).count() > 0:
         return False
     else:
         return True
@@ -56,7 +70,6 @@ def getTwitterUserAvailability(userScreenName):
 def putFacebookAppsData():
     databaseCollections.facebookAppsCollectionName.insert(
             {
-                "AppID": 1,
                 "AppName": "TestApp",
                 "AppMethodName": "TestMethod",
                 "AppImage": "images/appImages/app1/test.jpg",
@@ -67,13 +80,11 @@ def putFacebookAppsData():
                 "AppCreatedTime": datetime.datetime.utcnow()
             }
     )
-    print("Inserted")
-
+    print("Inserted FacebookApps data")
 
 def putTwitterAppsData():
     databaseCollections.twitterAppsCollectionName.insert(
             {
-                "AppID": 1,
                 "AppName": "TestApp",
                 "AppMethodName": "TestMethod",
                 "AppImage": "images/appImages/app1/test.jpg",
@@ -84,8 +95,7 @@ def putTwitterAppsData():
                 "AppCreatedTime": datetime.datetime.utcnow()
             }
     )
-    print("Inserted")
-
+    print("Inserted TwitterApps data")
 
 def rowCount(dbCollection):
     return dbCollection.count()
@@ -104,15 +114,15 @@ def numberOfFacebookAppPages():
 
 
 def getFacebookAppDetailsById(Id):
-    document = databaseCollections.facebookAppsCollectionName.find({"AppID": Id})
-    obj = facebookApps(appid=document[0]["AppID"],
-                       appname=document[0]["AppName"],
-                       appmethodname=document[0]["AppMethodName"],
-                       appimage=document[0]["AppImage"],
-                       appresultimage=document[0]["AppResultImage"],
-                       appsourceimage=document[0]["AppSourceImage"],
-                       appcomments=document[0]["AppComments"],
-                       appusedcount=document[0]["AppUsedCount"])
+    document = databaseCollections.facebookAppsCollectionName.find_one({'_id': ObjectId(Id)})
+    obj = facebookApps(appid=document["_id"],
+                       appname=document["AppName"],
+                       appmethodname=document["AppMethodName"],
+                       appimage=document["AppImage"],
+                       appresultimage=document["AppResultImage"],
+                       appsourceimage=document["AppSourceImage"],
+                       appcomments=document["AppComments"],
+                       appusedcount=document["AppUsedCount"])
     return obj
 
 
@@ -129,13 +139,22 @@ def numberOfTwitterAppPages():
 
 
 def getTwitterAppDetailsById(Id):
-    document = databaseCollections.twitterAppsCollectionName.find({"AppID": Id})
-    obj = twitterApps(appid=document[0]["AppID"],
-                      appname=document[0]["AppName"],
-                      appmethodname=document[0]["AppMethodName"],
-                      appimage=document[0]["AppImage"],
-                      appresultimage=document[0]["AppResultImage"],
-                      appsourceimage=document[0]["AppSourceImage"],
-                      appcomments=document[0]["AppComments"],
-                      appusedcount=document[0]["AppUsedCount"])
+    document = databaseCollections.twitterAppsCollectionName.find_one({'_id': ObjectId(Id)})
+
+    obj = twitterApps(appid=document["_id"],
+                      appname=document["AppName"],
+                      appmethodname=document["AppMethodName"],
+                      appimage=document["AppImage"],
+                      appresultimage=document["AppResultImage"],
+                      appsourceimage=document["AppSourceImage"],
+                      appcomments=document["AppComments"],
+                      appusedcount=document["AppUsedCount"])
     return obj
+
+
+def getTwitterAppsIDList():
+    return databaseCollections.twitterAppsCollectionName.distinct('_id')
+
+
+def getFacebookAppsIDList():
+    return databaseCollections.facebookAppsCollectionName.distinct('_id')

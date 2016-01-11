@@ -10,7 +10,7 @@ from flask import make_response, render_template
 runApplicaions = facebookAppsMethods()
 
 
-class runApplication(Resource):
+class runFacebookApplication(Resource):
     def get(self, appId):
         obj = getFacebookAppDetailsById(appId)
         method_name = obj.AppMethodName
@@ -19,9 +19,10 @@ class runApplication(Resource):
             raise Exception("Method %s not implemented" % method_name)
         method()
         print "Finished"
-        global TOKENS
+        global TOKENS , facebookUserObj
+        facebookUserObj = getFacebookUser()
         obj = getFacebookAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
-        return make_response(render_template('AppFinished.html', authorized=userAuthorized, id=User.facebook.userId,
-                                             name=User.facebook.userName, appDetails=obj), 200, headers)
+        return make_response(render_template('facebook/AppFinished.html', authorized=userAuthorized, id=facebookUserObj.userId,
+                                             name=facebookUserObj.userName, appDetails=obj), 200, headers)

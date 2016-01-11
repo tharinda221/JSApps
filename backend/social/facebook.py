@@ -3,6 +3,7 @@ __author__ = 'tharinda'
 # import classes
 from backend.common.Constants import *
 from backend.plainObjects.user import *
+from backend.database.Operations import *
 # import libraries
 import urllib
 from json import loads
@@ -16,14 +17,16 @@ app = flask.Flask(__name__)
 app.config.from_object(__name__)
 app.secret_key = common.ApplicationSecret
 
-FACEBOOK_APP_ID = facebook.appID
-FACEBOOK_APP_SECRET = facebook.secretKey
-GRAPH_API_VERSION = facebook.GraphAPIVersion
-REDIRECT_URI = facebook.redirectURL
-returnURL = facebook.returnURL
+FACEBOOK_APP_ID = facebookConstants.appID
+FACEBOOK_APP_SECRET = facebookConstants.secretKey
+GRAPH_API_VERSION = facebookConstants.GraphAPIVersion
+REDIRECT_URI = facebookConstants.redirectURL
+returnURL = facebookConstants.returnURL
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 requests.packages.urllib3.disable_warnings()
+
+facebookUserObj = User.facebookUser()
 
 
 class NotAuthorizedException(Exception):
@@ -80,22 +83,36 @@ def getUserToken(code):
         raise
 
 
-def getUserInitInfo(accesstoken):
-    url = facebook.baseGraphApiUrl + facebook.getUserInitInfoUrl + "&access_token=" + \
+def getFacebookUserInfo(accesstoken):
+    url = facebookConstants.baseGraphApiUrl + facebookConstants.getUserInitInfoUrl + "&access_token=" + \
           accesstoken + ""
     response = json.load(urllib.urlopen(url))
-    User.facebook.userId = response.get("id", "")
-    User.facebook.userName = response.get("name", "")
-    User.facebook.email = response.get("email", "")
-    User.facebook.gender = response.get("gender", "")
-    User.facebook.birthDay = response.get("birthday", "")
-    User.facebook.hometown = response.get("hometown", "")
-    User.facebook.education = response.get("education", [])
-    User.facebook.about = response.get("about", "")
+    global facebookUserObj
+    facebookUserObj = User.facebookUser(userId=response.get("id", ""),
+                                        userName=response.get("name", ""),
+                                        gender=response.get("gender", ""),
+                                        birthDay=response.get("birthday", ""),
+                                        hometown=response.get("hometown", ""),
+                                        email=response.get("email", ""),
+                                        education=response.get("education", []),
+                                        about=response.get("about", ""))
+    if getFacebookUserAvailability(facebookUserObj.userId):
+        putFacebookUserData(userId=facebookUserObj.userId,
+                            userName=facebookUserObj.userName,
+                            gender=facebookUserObj.gender,
+                            birthDay=facebookUserObj.birthDay,
+                            hometown=facebookUserObj.hometown,
+                            email=facebookUserObj.email,
+                            education=facebookUserObj.education,
+                            about=facebookUserObj.about)
+
+
+def getFacebookUser():
+    return facebookUserObj
 
 
 def getAllAlbums(accesstoken, uid):
-    url = facebook.baseGraphApiUrl + uid + "/albums?access_token=" + accesstoken + ""
+    url = facebookConstants.baseGraphApiUrl + uid + "/albums?access_token=" + accesstoken + ""
     return json.load(urllib.urlopen(url))
 
 
@@ -108,6 +125,6 @@ def getAlbumIdByName(accesstoken, uid, name):
 
 
 def getAlbumFromId(accesstoken, id):
-    url = facebook.baseGraphApiUrl + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
+    url = facebookConstants.baseGraphApiUrl + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
           accesstoken + ""
     return json.load(urllib.urlopen(url))

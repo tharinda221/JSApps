@@ -1,6 +1,5 @@
 # import classes
-from backend.social.twitter import *
 
-def printUserInfo():
-    resp = getTwitterUserDetails()
-    print(resp)
+class twitterAppsMethods(object):
+    def TestMethod(self):
+        print("Method Accessed")
