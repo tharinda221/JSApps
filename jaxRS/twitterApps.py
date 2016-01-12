@@ -25,12 +25,13 @@ class runTwitterApplicaions(Resource):
             print "Finished"
             global twitterObj
             twitterObj = getTwitterUser()
+            twitterCommentUrl = common.baseUrl + '/twitter/' + appId
             obj = getTwitterAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
-
             return make_response(
-                render_template('twitter/twitterAppFinished.html', TwitterAuthorized=twitterUserAuthorized,
-                                profilePicture=twitterObj.profileImage,
-                                name=twitterObj.userName, appDetails=obj), 200, headers)
+                    render_template('twitter/twitterAppFinished.html', TwitterAuthorized=twitterUserAuthorized,
+                                    profilePicture=twitterObj.profileImage,
+                                    name=twitterObj.userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl), 200,
+                    headers)
         else:
-            return flask.redirect('/twitter/appDetails/'+appId)
+            return flask.redirect('/twitter/appDetails/' + appId)

@@ -10,6 +10,7 @@ from flask import render_template, make_response
 facebookAppCount = NumberOfFacebookApps()
 FacebookAppList = getFacebookAppsIDList()
 
+
 class authorizeFacebook(Resource):
     def get(self):
         facebookConstants.returnURL = flask.request.args.get("redirect")
@@ -41,10 +42,10 @@ class facebook(Resource):
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
-                            name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
-                            facebookPageNum=1, pageAppList=list),
-            200, headers)
+                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
+                                name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
+                                facebookPageNum=1, pageAppList=list),
+                200, headers)
 
 
 class getFacebookPage(Resource):
@@ -56,19 +57,22 @@ class getFacebookPage(Resource):
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
-                            name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
-                            facebookPageNum=pageNum, pageAppList=list),
-            200, headers)
+                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
+                                name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
+                                facebookPageNum=pageNum, pageAppList=list),
+                200, headers)
 
 
 class getFacebookApp(Resource):
     def get(self, appId):
         global TOKENS, facebookUserObj
+        facebookCommentUrl = common.baseUrl + '/facebook/' + appId
         facebookUserObj = getFacebookUser()
         obj = getFacebookAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
-                            name=facebookUserObj.userName, appDetails=obj), 200, headers)
+                render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized,
+                                id=facebookUserObj.userId,
+                                name=facebookUserObj.userName, appDetails=obj, facebookCommentUrl=facebookCommentUrl),
+                200, headers)

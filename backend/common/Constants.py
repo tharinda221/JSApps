@@ -16,6 +16,7 @@ class common:
 
     ApplicationSecret = ""
     numOfAppsPerPage = 8
+    baseUrl = "http://" + host + ":" + str(port) + "/"
 
 
 class facebookConstants:

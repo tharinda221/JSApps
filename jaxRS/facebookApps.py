@@ -23,11 +23,14 @@ class runFacebookApplication(Resource):
             method()
             print "Finished"
             global facebookUserObj
+            facebookCommentUrl = common.baseUrl + '/facebook/' + appId
             facebookUserObj = getFacebookUser()
             obj = getFacebookAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
-            return make_response(render_template('facebook/facebookAppFinished.html', authorized=userAuthorized, id=facebookUserObj.userId,
-                                                 name=facebookUserObj.userName, appDetails=obj), 200, headers)
+            return make_response(render_template('facebook/facebookAppFinished.html', authorized=userAuthorized,
+                                                 id=facebookUserObj.userId,
+                                                 name=facebookUserObj.userName, appDetails=obj,
+                                                 facebookCommentUrl=facebookCommentUrl), 200, headers)
         else:
-            return flask.redirect('/facebook/appDetails/'+appId)
+            return flask.redirect('/facebook/appDetails/' + appId)

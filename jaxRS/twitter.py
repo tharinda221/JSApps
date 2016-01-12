@@ -25,6 +25,7 @@ profileImage = ""
 TwitterAppCount = NumberOfTwitterApps()
 TwitterAppList = getTwitterAppsIDList()
 
+
 class authorizeTwitter(Resource):
     def get(self):
         global resource_owner_key, resource_owner_secret
@@ -89,9 +90,12 @@ class getTwitterApp(Resource):
     def get(self, appId):
         global twitterTokens, twitterObj
         twitterObj = getTwitterUser()
+        twitterCommentUrl = common.baseUrl + '/twitter/' + appId
         obj = getTwitterAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
-        return make_response(render_template('twitter/twitterAppDetailPage.html', TwitterAuthorized=twitterUserAuthorized,
-                                             profilePicture=twitterObj.profileImage,
-                                             name=twitterObj.userName, appDetails=obj), 200, headers)
+        return make_response(
+            render_template('twitter/twitterAppDetailPage.html', TwitterAuthorized=twitterUserAuthorized,
+                            profilePicture=twitterObj.profileImage,
+                            name=twitterObj.userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl), 200,
+            headers)
