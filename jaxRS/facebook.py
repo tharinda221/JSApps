@@ -70,5 +70,5 @@ class getFacebookApp(Resource):
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "user_token" in TOKENS else False
         return make_response(
-            render_template('facebook/facebookAppDetails.html', authorized=userAuthorized, id=facebookUserObj.userId,
+            render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
                             name=facebookUserObj.userName, appDetails=obj), 200, headers)

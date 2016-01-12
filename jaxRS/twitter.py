@@ -92,6 +92,6 @@ class getTwitterApp(Resource):
         obj = getTwitterAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
-        return make_response(render_template('twitter/twitterAppDetails.html', TwitterAuthorized=twitterUserAuthorized,
+        return make_response(render_template('twitter/twitterAppDetailPage.html', TwitterAuthorized=twitterUserAuthorized,
                                              profilePicture=twitterObj.profileImage,
                                              name=twitterObj.userName, appDetails=obj), 200, headers)
