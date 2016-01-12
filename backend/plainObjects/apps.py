@@ -6,7 +6,6 @@ class facebookApps(object):
                  appsourceimage="",
                  appresultimage="",
                  appsocialname="",
-                 appcomments=[],
                  appusedcount="",
                  appcreatedtimedate="",
                  appdescription=""
@@ -14,7 +13,6 @@ class facebookApps(object):
         self.AppDescription = appdescription
         self.AppCreatedTimeDate = appcreatedtimedate
         self.AppUsedCount = appusedcount
-        self.AppComments = appcomments
         self.AppSocialName = appsocialname
         self.AppResultImage = appresultimage
         self.AppSourceImage = appsourceimage
@@ -32,7 +30,6 @@ class twitterApps(object):
                  appsourceimage="",
                  appresultimage="",
                  appsocialname="",
-                 appcomments=[],
                  appusedcount="",
                  appcreatedtimedate="",
                  appdescription=""
@@ -40,7 +37,6 @@ class twitterApps(object):
         self.AppDescription = appdescription
         self.AppCreatedTimeDate = appcreatedtimedate
         self.AppUsedCount = appusedcount
-        self.AppComments = appcomments
         self.AppSocialName = appsocialname
         self.AppResultImage = appresultimage
         self.AppSourceImage = appsourceimage

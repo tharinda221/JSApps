@@ -70,33 +70,33 @@ def getTwitterUserAvailability(userScreenName):
 def putFacebookAppsData():
     databaseCollections.facebookAppsCollectionName.insert(
             {
-                "AppName": "TestApp",
+                "AppName": "Memory Collection",
                 "AppMethodName": "TestMethod",
-                "AppImage": "images/appImages/app1/test.jpg",
+                "AppImage": "images/appImages/facebook/app1/test.jpg",
                 "AppSourceImage": "images/appImages/facebook/app1/testSource.jpg",
                 "AppResultImage": "images/appImages/facebook/app1/testResult.jpg",
-                "AppComments": [],
                 "AppUsedCount": 0,
-                "AppCreatedTime": datetime.datetime.utcnow()
+                "AppCreatedTime": datetime.datetime.utcnow(),
+                "AppDescription": "This app will give a image included your memories of past few years"
             }
     )
     print("Inserted FacebookApps data")
 
+
 def putTwitterAppsData():
     databaseCollections.twitterAppsCollectionName.insert(
             {
-                "AppName": "TestApp",
+                "AppName": "Your Most Used Words",
                 "AppMethodName": "TestMethod",
-                "AppImage": "images/appImages/app1/test.jpg",
-                "AppSourceImage": "images/appImages/twitter/app1/testSource.jpg",
-                "AppResultImage": "images/appImages/twitter/app1/testResult.jpg",
-                "AppComments": [],
+                "AppImage": "images/appImages/twitter/app1/appImage.jpg",
+                "AppSourceImage": "images/appImages/twitter/app1/background.jpg",
+                "AppResultImage": "images/appImages/twitter/app1/appResultImage.jpg",
                 "AppUsedCount": 0,
-                "AppCreatedTime": datetime.datetime.utcnow()
+                "AppCreatedTime": datetime.datetime.utcnow(),
+                "AppDescription": "This app will read your tweets and out you mostly used words in twitter"
             }
     )
     print("Inserted TwitterApps data")
-
 def rowCount(dbCollection):
     return dbCollection.count()
 
@@ -121,8 +121,8 @@ def getFacebookAppDetailsById(Id):
                        appimage=document["AppImage"],
                        appresultimage=document["AppResultImage"],
                        appsourceimage=document["AppSourceImage"],
-                       appcomments=document["AppComments"],
-                       appusedcount=document["AppUsedCount"])
+                       appusedcount=document["AppUsedCount"],
+                       appdescription=document["AppDescription"])
     return obj
 
 
@@ -147,8 +147,8 @@ def getTwitterAppDetailsById(Id):
                       appimage=document["AppImage"],
                       appresultimage=document["AppResultImage"],
                       appsourceimage=document["AppSourceImage"],
-                      appcomments=document["AppComments"],
-                      appusedcount=document["AppUsedCount"])
+                      appusedcount=document["AppUsedCount"],
+                      appdescription=document["AppDescription"])
     return obj
 
 
@@ -158,3 +158,5 @@ def getTwitterAppsIDList():
 
 def getFacebookAppsIDList():
     return databaseCollections.facebookAppsCollectionName.distinct('_id')
+
+# def increaseAppCount(dbCollection):

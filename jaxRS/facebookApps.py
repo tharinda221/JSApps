@@ -16,6 +16,7 @@ class runFacebookApplication(Resource):
         userAuthorized = True if "user_token" in TOKENS else False
         if userAuthorized:
             obj = getFacebookAppDetailsById(appId)
+            # run method
             method_name = obj.AppMethodName
             method = getattr(runApplicaions, method_name)
             if not method:

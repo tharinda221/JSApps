@@ -17,6 +17,7 @@ class runTwitterApplicaions(Resource):
         twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
         if twitterUserAuthorized:
             obj = getTwitterAppDetailsById(appId)
+            # run method
             method_name = obj.AppMethodName
             method = getattr(runTwitterApp, method_name)
             if not method:

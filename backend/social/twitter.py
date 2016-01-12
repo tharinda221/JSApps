@@ -32,7 +32,8 @@ def getUserToken(verifier, resource_owner_key, resource_owner_secret):
 
 
 def getTwitterUserDetails():
-    twitterAgent = Twython(twitterConstants.CONSUMER_KEY, twitterConstants.CONSUMER_SECRET, twitterTokens["twitterToken"],
+    twitterAgent = Twython(twitterConstants.CONSUMER_KEY, twitterConstants.CONSUMER_SECRET,
+                           twitterTokens["twitterToken"],
                            twitterTokens["twitterSecret"])
     resp = twitterAgent.verify_credentials(screen_name=twitterConstants.screen_name)
     global twitterObj
@@ -53,6 +54,18 @@ def getTwitterUserDetails():
                            userDescription=twitterObj.userDescription,
                            profileImage=twitterObj.profileImage
                            )
+
+
+def getTweetsToString():
+    re = ""
+    twitterAgent = Twython(twitterConstants.CONSUMER_KEY, twitterConstants.CONSUMER_SECRET,
+                           twitterTokens["twitterToken"],
+                           twitterTokens["twitterSecret"])
+    user_timeline = twitterAgent.get_user_timeline(screen_name=twitterConstants.screen_name, count=50)
+    for tweet in user_timeline:
+        # print tweet['text'] + "\n"
+        re = re + tweet['text'] + " "
+    return re
 
 
 def getTwitterUser():

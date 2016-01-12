@@ -11,4 +11,5 @@ host = configData["host"]
 port = configData["port"]
 database = configData["database"]
 databaseName = configData["databaseName"]
-AppsImagePath = BASE_DIR + "JSApps/static/images/appImages/"
+AppsImagePath = BASE_DIR + "/JSApps/static/images/appImages/"
+fontPath = BASE_DIR + "/JSApps/static/fonts/"
