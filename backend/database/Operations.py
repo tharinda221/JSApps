@@ -72,9 +72,9 @@ def putFacebookAppsData():
             {
                 "AppName": "Memory Collection",
                 "AppMethodName": "TestMethod",
-                "AppImage": "images/appImages/facebook/app1/test.jpg",
-                "AppSourceImage": "images/appImages/facebook/app1/testSource.jpg",
-                "AppResultImage": "images/appImages/facebook/app1/testResult.jpg",
+                "AppImage": "images/appImages/facebook/app1/appImage.jpg",
+                "AppSourceImage": "images/appImages/facebook/app1/background.jpg",
+                "AppResultImage": "images/appImages/facebook/app1/appResultImage.jpg",
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
                 "AppDescription": "This app will give a image included your memories of past few years"
@@ -97,6 +97,8 @@ def putTwitterAppsData():
             }
     )
     print("Inserted TwitterApps data")
+
+
 def rowCount(dbCollection):
     return dbCollection.count()
 

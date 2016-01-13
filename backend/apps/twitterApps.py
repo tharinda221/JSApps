@@ -46,6 +46,3 @@ class twitterAppsMethods(object):
         img.save(imagepath + 'twitter/app1/appResultImage.jpg')
 
         img.show()
-
-# text = 'namodaya namoda yasas yasas yass bala balaarachchi namodaya yasas namo namodaya namodaya namodaya yasas bala bala yasas namodaya'
-# twitterAppsMethods().TestMethod()

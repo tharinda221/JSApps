@@ -3,8 +3,8 @@
     {% if not authorized %}
         <div class="span9">
             <p class="pull-right">
-                <a onclick="location.href='/authorize/facebook?redirect={{ request.url }}'"><img
-                        src="{{ url_for('static', filename = 'images/facebook-login-button.png') }}"></a>
+                <a href="{{ url_for('/authorize/facebook', redirect=request.url) }}"><img
+                        src="{{ url_for('static', filename = 'images/common/facebook-login-button.png') }}"></a>
             </p>
         </div>
     {% endif %}

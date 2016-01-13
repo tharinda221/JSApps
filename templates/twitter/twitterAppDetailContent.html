@@ -6,8 +6,9 @@
                     <a onclick="location.href='/twitter/runApplication/{{ appDetails.AppID }}'"><img
                             src="{{ url_for('static', filename='' + appDetails.AppSourceImage) }}" alt="thumbnail"></a>
                 {% else %}
-                    <a onclick="location.href='/authorize/twitter?redirect={{ request.url }}'"><img
-                            src="{{ url_for('static', filename='images/common/twitterLoginLarge.png') }}" alt="thumbnail"></a>
+                    <a href="{{ url_for('/authorize/twitter', redirect=request.url) }}"><img
+                            src="{{ url_for('static', filename='images/common/twitterLoginLarge.jpg') }}"
+                            alt="thumbnail"></a>
                 {% endif %}
                 {#                <div class="caption">#}
                 {#                    <h2>Lorem ipsum</h2>#}

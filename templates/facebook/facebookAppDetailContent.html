@@ -6,8 +6,9 @@
                     <a onclick="location.href='/facebook/runApplication/{% print(appDetails.AppID) %}'"><img
                             src="{{ url_for('static', filename='' + appDetails.AppSourceImage) }}" alt="thumbnail"></a>
                 {% else %}
-                    <a onclick="location.href='/authorize/facebook?redirect={{ request.url }}'"><img
-                            src="{{ url_for('static', filename='images/common/facebookLogin.jpg') }}" alt="thumbnail"></a>
+                    <a href="{{ url_for('/authorize/facebook', redirect=request.url) }}"><img
+                            src="{{ url_for('static', filename='images/common/facebookLoginLarge.jpg') }}"
+                            alt="thumbnail"></a>
                 {% endif %}
                 {#                <div class="caption">#}
                 {#                    <h2>Lorem ipsum</h2>#}

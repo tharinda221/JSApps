@@ -3,7 +3,7 @@
     {% if not TwitterAuthorized %}
         <div class="span9">
             <p class="pull-right">
-                <a onclick="location.href='/authorize/twitter?redirect={{ request.url }}'"><img
+                <a href="{{ url_for('/authorize/twitter', redirect=request.url) }}"><img
                         src="{{ url_for('static', filename = 'images/common/loginTwitter.png') }}"></a>
             </p>
         </div>
