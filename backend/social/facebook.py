@@ -24,7 +24,7 @@ REDIRECT_URI = facebookConstants.redirectURL
 returnURL = facebookConstants.returnURL
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-requests.packages.urllib3.disable_warnings()
+# requests.packages.urllib3.disable_warnings()
 
 facebookUserObj = User.facebookUser()
 
