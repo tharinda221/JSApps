@@ -62,9 +62,9 @@ def getFacebookUserAvailability(userId):
 
 def getTwitterUserAvailability(userScreenName):
     if databaseCollections.userTwitterCollectionName.find({'userScreenName': userScreenName}).count() > 0:
-        return True
-    else:
         return False
+    else:
+        return True
 
 
 def putFacebookAppsData():

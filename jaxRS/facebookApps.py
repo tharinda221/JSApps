@@ -22,8 +22,8 @@ class runFacebookApplication(Resource):
                 raise Exception("Method %s not implemented" % method_name)
             method()
             print "Finished"
-            userId = session["twitterUser"]["userId"]
-            userName = session["twitterUser"]["userName"]
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
             facebookCommentUrl = common.baseUrl + '/facebook/' + appId
             obj = getFacebookAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}

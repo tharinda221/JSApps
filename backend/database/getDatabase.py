@@ -6,9 +6,9 @@ import config
 
 
 def getDatabase():
-    # url = "mongodb://JSApps:JSApps@ds045465.mongolab.com:45465/jsapps"
-    url = config.database
+    url = "mongodb://JSApps:JSApps@ds045465.mongolab.com:45465/jsapps"
+    # url = config.database
     client = MongoClient(url)
-    #db = client.jsapps
-    dbName = config.databaseName
-    return client.dbName
+    db = client.jsapps
+    # return client.JSApps
+    return db
