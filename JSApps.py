@@ -24,7 +24,7 @@ api.add_resource(facebookAuthorized, '/callback/facebook')
 api.add_resource(authorizeTwitter, '/authorize/twitter', endpoint='/authorize/twitter')
 api.add_resource(handleCallbackTwitter, '/callback/twitter', endpoint='/callback/twitter')
 api.add_resource(getFacebookPage, '/facebook/<int:pageNum>', endpoint='/facebook/')
-api.add_resource(getFacebookApp, '/facebook/appDetails/<appId>', endpoint='/facebook/appDetails/')
+api.add_resource(getFacebookApp, '/facebook/appDetails/<appId>', endpoint='/facebook/appDetails/appId')
 api.add_resource(runFacebookApplication, '/facebook/runApplication/<appId>',
                  endpoint='/facebook/runApplication/<appId>')
 api.add_resource(getTwitterPage, '/twitter/<int:pageNum>', endpoint='/twitter/')

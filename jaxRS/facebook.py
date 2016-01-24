@@ -12,29 +12,6 @@ from flask import render_template, make_response, session
 facebookAppCount = NumberOfFacebookApps()
 FacebookAppList = getFacebookAppsIDList()
 
-
-class authorizeFacebook(Resource):
-    def get(self):
-        facebookConstants.returnURL = flask.request.args.get("redirect")
-        return flask.redirect("https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s&scope=publish_actions"
-                              % (FACEBOOK_APP_ID, REDIRECT_URI))
-
-
-class handleCallbackFacebook(Resource):
-    def get(self):
-        global TOKENS
-        global USER
-        try:
-            session["facebook_user_token"] = getUserToken(flask.request.args.get("code"))
-            getFacebookUserInfo(session["facebook_user_token"])
-            session["facebookUser"] = json.loads(getFacebookUserJson())
-            return flask.redirect(facebookConstants.returnURL)
-        except NotAuthorizedException:
-            return 'Access was not granted or authorization failed', 403
-        except:
-            raise
-
-
 graph_url = 'https://graph.facebook.com/'
 facebookAgent = OAuth2Service(name='facebook',
                               authorize_url='https://www.facebook.com/dialog/oauth',

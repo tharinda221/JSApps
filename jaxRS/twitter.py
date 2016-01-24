@@ -28,12 +28,6 @@ TwitterAppList = getTwitterAppsIDList()
 app = flask.Flask(__name__)
 
 
-def setUser(UserObj):
-    ctx = app.app_context()
-    g.twitterUser = UserObj
-    ctx.push()
-
-
 class authorizeTwitter(Resource):
     def get(self):
         global resource_owner_key, resource_owner_secret
@@ -58,7 +52,7 @@ class handleCallbackTwitter(Resource):
                     resource_owner_secret)
             getTwitterUserDetails()
             session["twitterUser"] = json.loads(getTwitterUserJson())
-            return flask.redirect(twitterConstants.returnURL)
+            return flask.redirect(twitterConstants.returnURL[21:])
 
         except NotAuthorizedException:
             return 'Access was not granted or authorization failed', 403
@@ -124,6 +118,8 @@ class getTwitterApp(Resource):
                                 name=userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl),
                 200,
                 headers)
+
+
 class shareTwitterResults(Resource):
     def get(self, appId):
         shareTwitterPost(appId)
