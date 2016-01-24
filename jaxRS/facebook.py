@@ -61,7 +61,6 @@ class facebookAuthorized(Resource):
         session["facebookUser"] = json.loads(getFacebookUserJson())
         return flask.redirect(facebookConstants.returnURL)
 
-
 class facebook(Resource):
     def get(self):
         global TOKENS, noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
@@ -107,7 +106,7 @@ class getFacebookApp(Resource):
         global TOKENS, facebookUserObj
         facebookCommentUrl = common.baseUrl + '/facebook/' + appId
         facebookUserObj = getFacebookUser()
-        obj = getFacebookAppDetailsById(appId)
+        appDetails = getFacebookAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "facebook_user_token" in session else False
         userId = ""
@@ -118,5 +117,11 @@ class getFacebookApp(Resource):
         return make_response(
                 render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized,
                                 id=userId,
-                                name=userName, appDetails=obj, facebookCommentUrl=facebookCommentUrl),
+                                name=userName, appDetails=appDetails, facebookCommentUrl=facebookCommentUrl),
                 200, headers)
+
+class shareFacebookResults(Resource):
+    def get(self, appId):
+        sharePost(session["facebook_user_token"], appId)
+        return flask.redirect('/facebook')
+

@@ -1,3 +1,5 @@
+import urllib2
+
 __author__ = 'tharinda'
 
 # import classes
@@ -5,10 +7,7 @@ from backend.common.Constants import *
 from backend.plainObjects.user import *
 from backend.database.Operations import *
 # import libraries
-import urllib
-from json import loads
-from urllib3 import HTTPSConnectionPool
-from urlparse import parse_qs
+from flask import session, url_for
 import requests
 import logging
 import flask
@@ -29,64 +28,11 @@ requests.packages.urllib3.disable_warnings()
 facebookUserObj = User.facebookUser()
 
 
-class NotAuthorizedException(Exception):
-    pass
-
-
-class FacebookConnection(HTTPSConnectionPool):
-    def __init__(self):
-        super(FacebookConnection, self).__init__('graph.facebook.com')
-
-    def __call__(self, method, url, token, http_headers, request_body):
-        if http_headers is None:
-            http_headers = {}
-
-        if token is not None:
-            http_headers["Authorization"] = "Bearer %s" % token
-
-        return self.urlopen(method, url, headers=http_headers, body=request_body)
-
-
-FACEBOOK_CONNECTION = FacebookConnection()
-
-
-# OAuth functions
-
-def GetAppToken():
-    try:
-        response = FACEBOOK_CONNECTION(
-                'GET',
-                '/oauth/access_token?client_id=%s&client_secret=%s&grant_type=client_credentials'
-                % (FACEBOOK_APP_ID, FACEBOOK_APP_SECRET),
-                None, None, None)
-
-        return parse_qs(response.data.decode("utf-8"))["access_token"]
-    except KeyError:
-        logging.log(logging.ERROR, response.data)
-        raise NotAuthorizedException("Authorization error", "App access token not found")
-    except:
-        raise
-
-
-def getUserToken(code):
-    try:
-        response = FACEBOOK_CONNECTION(
-                'GET',
-                '/%s/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s'
-                % (GRAPH_API_VERSION, FACEBOOK_APP_ID, REDIRECT_URI, FACEBOOK_APP_SECRET, code),
-                None, None, None)
-        return loads(response.data.decode("utf-8"))["access_token"]
-    except KeyError:
-        logging.log(logging.ERROR, response.data)
-        raise NotAuthorizedException("Authorization error", "User access token not found")
-    except:
-        raise
-
-
 def getFacebookUserInfo(accesstoken):
     url = facebookConstants.baseGraphApiUrl + facebookConstants.getUserInitInfoUrl + "&access_token=" + \
           accesstoken + ""
-    response = json.load(urllib.urlopen(url))
+    resp = requests.get(url)
+    response = json.loads(resp.text)
     global facebookUserObj
     facebookUserObj = User.facebookUser(userId=response.get("id", ""),
                                         userName=response.get("name", ""),
@@ -110,13 +56,16 @@ def getFacebookUserInfo(accesstoken):
 def getFacebookUser():
     return facebookUserObj
 
+
 def getFacebookUserJson():
     return json.dumps(facebookUserObj, default=lambda o: o.__dict__)
 
 
 def getAllAlbums(accesstoken, uid):
     url = facebookConstants.baseGraphApiUrl + uid + "/albums?access_token=" + accesstoken + ""
-    return json.load(urllib.urlopen(url))
+    resp = requests.get(url)
+    response = json.loads(resp.text)
+    return response
 
 
 def getAlbumIdByName(accesstoken, uid, name):
@@ -130,4 +79,21 @@ def getAlbumIdByName(accesstoken, uid, name):
 def getAlbumFromId(accesstoken, id):
     url = facebookConstants.baseGraphApiUrl + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
           accesstoken + ""
-    return json.load(urllib.urlopen(url))
+    resp = requests.get(url)
+    response = json.loads(resp.text)
+    return response
+
+def sharePost(accesstoken, appId):
+    url = facebookConstants.baseGraphApiUrl  + "me/feed" + "?access_token=" + \
+              accesstoken + ""
+    appDetails = getFacebookAppDetailsById(appId)
+    payload = {
+        'message': appDetails.AppMessage,
+        'link': common.baseUrl + url_for('/facebook/appDetails/', appId=appId),
+        'picture': common.baseUrl + url_for('static', filename='' + appDetails.AppSourceImage),
+        "description" : appDetails.AppDescription,
+        "name" : session["facebookUser"]["userName"]
+    }
+    r = requests.post(url, data=payload)
+
+    print(r.status_code, r.reason)

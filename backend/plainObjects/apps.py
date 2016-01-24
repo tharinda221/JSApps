@@ -8,8 +8,10 @@ class facebookApps(object):
                  appsocialname="",
                  appusedcount="",
                  appcreatedtimedate="",
-                 appdescription=""
+                 appdescription="",
+                 appmessage=""
                  ):
+        self.AppMessage = appmessage
         self.AppDescription = appdescription
         self.AppCreatedTimeDate = appcreatedtimedate
         self.AppUsedCount = appusedcount
@@ -32,8 +34,10 @@ class twitterApps(object):
                  appsocialname="",
                  appusedcount="",
                  appcreatedtimedate="",
-                 appdescription=""
+                 appdescription="",
+                 appmessage=""
                  ):
+        self.AppMessage = appmessage
         self.AppDescription = appdescription
         self.AppCreatedTimeDate = appcreatedtimedate
         self.AppUsedCount = appusedcount

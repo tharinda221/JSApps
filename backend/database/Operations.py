@@ -77,7 +77,8 @@ def putFacebookAppsData():
                 "AppResultImage": "images/appImages/facebook/app1/appResultImage.jpg",
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
-                "AppDescription": "This app will give a image included your memories of past few years"
+                "AppDescription": "This app will give a image included your memories of past few years",
+                "AppMessage" : "This app will give a image included your memories of past few years"
             }
     )
     print("Inserted FacebookApps data")
@@ -93,7 +94,8 @@ def putTwitterAppsData():
                 "AppResultImage": "images/appImages/twitter/app1/appResultImage.jpg",
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
-                "AppDescription": "This app will read your tweets and out you mostly used words in twitter"
+                "AppDescription": "This app will read your tweets and out you mostly used words in twitter",
+                "AppMessage": "This app will read your tweets and out you mostly used words in twitter"
             }
     )
     print("Inserted TwitterApps data")

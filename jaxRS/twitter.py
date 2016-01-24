@@ -56,7 +56,7 @@ class handleCallbackTwitter(Resource):
             session["twitter_user_token"], session["twitter_user_secret"], session["screen_name"] = getUserToken(
                     verifier, resource_owner_key,
                     resource_owner_secret)
-            getTwitterUserDetails(session["twitter_user_token"], session["twitter_user_secret"])
+            getTwitterUserDetails()
             session["twitterUser"] = json.loads(getTwitterUserJson())
             return flask.redirect(twitterConstants.returnURL)
 
@@ -124,3 +124,7 @@ class getTwitterApp(Resource):
                                 name=userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl),
                 200,
                 headers)
+class shareTwitterResults(Resource):
+    def get(self, appId):
+        shareTwitterPost(appId)
+        return flask.redirect('/twitter')

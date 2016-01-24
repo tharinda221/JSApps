@@ -8,7 +8,7 @@ from twython import Twython
 import requests
 from requests_oauthlib import OAuth1
 from urlparse import parse_qs
-from flask import session
+from flask import session, url_for
 
 CONSUMER_KEY = twitterConstants.CONSUMER_KEY
 CONSUMER_SECRET = twitterConstants.CONSUMER_SECRET
@@ -32,10 +32,10 @@ def getUserToken(verifier, resource_owner_key, resource_owner_secret):
         0]
 
 
-def getTwitterUserDetails(userToken, userSecret):
+def getTwitterUserDetails():
     twitterAgent = Twython(twitterConstants.CONSUMER_KEY, twitterConstants.CONSUMER_SECRET,
-                           userToken,
-                           userSecret)
+                           session["twitter_user_token"],
+                           session["twitter_user_secret"])
     resp = twitterAgent.verify_credentials(screen_name=session["screen_name"])
     global twitterObj
     twitterObj = User.twitterUser(resp["id_str"],
@@ -75,3 +75,16 @@ def getTwitterUser():
 
 def getTwitterUserJson():
     return json.dumps(twitterObj, default=lambda o: o.__dict__)
+
+
+def shareTwitterPost(appId):
+    appDetails = getTwitterAppDetailsById(appId)
+    twitterAgent = Twython(twitterConstants.CONSUMER_KEY, twitterConstants.CONSUMER_SECRET,
+                           session["twitter_user_token"],
+                           session["twitter_user_secret"])
+    twitterAgent.update_status_with_media(status=common.baseUrl + url_for('/facebook/appDetails/', appId=appId),
+                                          media=photo(appDetails.AppResultImage))
+
+
+def photo(imageLocation):
+    return open(config.pathToStatic + imageLocation, 'rb')

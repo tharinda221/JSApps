@@ -13,3 +13,4 @@ database = configData["database"]
 databaseName = configData["databaseName"]
 AppsImagePath = BASE_DIR + "/JSApps/static/images/appImages/"
 fontPath = BASE_DIR + "/JSApps/static/fonts/"
+pathToStatic = BASE_DIR + "/JSApps/static/"
