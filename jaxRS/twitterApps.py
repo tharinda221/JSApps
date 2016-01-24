@@ -14,7 +14,7 @@ runTwitterApp = twitterAppsMethods()
 class runTwitterApplicaions(Resource):
     def get(self, appId):
         global twitterTokens
-        twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
+        twitterUserAuthorized = True if "twitter_user_token" in session else False
         if twitterUserAuthorized:
             obj = getTwitterAppDetailsById(appId)
             # run method
@@ -24,15 +24,15 @@ class runTwitterApplicaions(Resource):
                 raise Exception("Method %s not implemented" % method_name)
             method()
             print "Finished"
-            global twitterObj
-            twitterObj = getTwitterUser()
+            profileImage = session["twitterUser"]["profileImage"]
+            userName = session["twitterUser"]["userName"]
             twitterCommentUrl = common.baseUrl + '/twitter/' + appId
             obj = getTwitterAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
             return make_response(
                     render_template('twitter/twitterAppFinished.html', TwitterAuthorized=twitterUserAuthorized,
-                                    profilePicture=twitterObj.profileImage,
-                                    name=twitterObj.userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl), 200,
+                                    profilePicture=profileImage,
+                                    name=userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl), 200,
                     headers)
         else:
             return flask.redirect('/twitter/appDetails/' + appId)

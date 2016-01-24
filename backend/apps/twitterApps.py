@@ -1,6 +1,7 @@
 # import classes
 import config
 from backend.social.twitter import *
+from flask import session
 # import libraries
 from PIL import Image
 from PIL import ImageFont
@@ -9,7 +10,8 @@ from PIL import ImageDraw
 
 class twitterAppsMethods(object):
     def TestMethod(self):
-        text = getTweetsToString()
+        print session["twitter_user_token"]
+        text = getTweetsToString(session["twitter_user_token"], session["twitter_user_secret"])
         splitStr = text.split(' ')
         count = 0
         map = {}

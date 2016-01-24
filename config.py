@@ -1,7 +1,7 @@
 __author__ = 'tharinda'
+
 # import libraries
 import os
-
 from flask import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))

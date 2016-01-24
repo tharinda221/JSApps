@@ -12,8 +12,7 @@ runApplicaions = facebookAppsMethods()
 
 class runFacebookApplication(Resource):
     def get(self, appId):
-        global TOKENS
-        userAuthorized = True if "user_token" in TOKENS else False
+        userAuthorized = True if "facebook_user_token" in session else False
         if userAuthorized:
             obj = getFacebookAppDetailsById(appId)
             # run method
@@ -23,15 +22,15 @@ class runFacebookApplication(Resource):
                 raise Exception("Method %s not implemented" % method_name)
             method()
             print "Finished"
-            global facebookUserObj
+            userId = session["twitterUser"]["userId"]
+            userName = session["twitterUser"]["userName"]
             facebookCommentUrl = common.baseUrl + '/facebook/' + appId
-            facebookUserObj = getFacebookUser()
             obj = getFacebookAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
             return make_response(render_template('facebook/facebookAppFinished.html', authorized=userAuthorized,
-                                                 id=facebookUserObj.userId,
-                                                 name=facebookUserObj.userName, appDetails=obj,
+                                                 id=userId,
+                                                 name=userName, appDetails=obj,
                                                  facebookCommentUrl=facebookCommentUrl), 200, headers)
         else:
             return flask.redirect('/facebook/appDetails/' + appId)

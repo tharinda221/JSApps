@@ -1,15 +1,15 @@
-# import libraries
-import flask
-from flask import render_template, make_response
-import requests
-from requests_oauthlib import OAuth1
-from urlparse import parse_qs
-from flask_restful import Resource
-
 # import classes
 from backend.common.Constants import *
 from backend.social.twitter import *
 from backend.frontEndOperaions.indexOperations import *
+
+# import libraries
+import flask
+from flask import render_template, make_response, session, g
+import requests
+from requests_oauthlib import OAuth1
+from urlparse import parse_qs
+from flask_restful import Resource
 
 REQUEST_TOKEN_URL = twitterConstants.REQUEST_TOKEN_URL
 AUTHORIZE_URL = twitterConstants.AUTHORIZE_URL
@@ -24,6 +24,14 @@ userName = ""
 profileImage = ""
 TwitterAppCount = NumberOfTwitterApps()
 TwitterAppList = getTwitterAppsIDList()
+
+app = flask.Flask(__name__)
+
+
+def setUser(UserObj):
+    ctx = app.app_context()
+    g.twitterUser = UserObj
+    ctx.push()
 
 
 class authorizeTwitter(Resource):
@@ -45,8 +53,11 @@ class handleCallbackTwitter(Resource):
     def get(self):
         try:
             verifier = flask.request.args.get("oauth_verifier")
-            getUserToken(verifier, resource_owner_key, resource_owner_secret)
-            getTwitterUserDetails()
+            session["twitter_user_token"], session["twitter_user_secret"], session["screen_name"] = getUserToken(
+                    verifier, resource_owner_key,
+                    resource_owner_secret)
+            getTwitterUserDetails(session["twitter_user_token"], session["twitter_user_secret"])
+            session["twitterUser"] = json.loads(getTwitterUserJson())
             return flask.redirect(twitterConstants.returnURL)
 
         except NotAuthorizedException:
@@ -58,14 +69,19 @@ class handleCallbackTwitter(Resource):
 class twitter(Resource):
     def get(self):
         global twitterTokens, noOfAppsPagesTwitter, TwitterAppCount, TwitterAppList
-        twitterObj = getTwitterUser()
         startId, endId = getStartIdAndEndId(1, TwitterAppCount)
         list = getAppList(startId, endId, TwitterAppList, "twitter")
         headers = {'Content-Type': 'text/html'}
-        twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
+        twitterUserAuthorized = True if "twitter_user_token" in session else False
+        profileImage = ""
+        userName = ""
+        if twitterUserAuthorized:
+            profileImage = session["twitterUser"]["profileImage"]
+            userName = session["twitterUser"]["userName"]
         return make_response(render_template('twitter/twitterPage.html', TwitterAuthorized=twitterUserAuthorized,
-                                             profilePicture=twitterObj.profileImage,
-                                             name=twitterObj.userName, noOfAppsPagesTwitter=noOfAppsPagesTwitter,
+                                             profilePicture=profileImage,
+                                             name=userName,
+                                             noOfAppsPagesTwitter=noOfAppsPagesTwitter,
                                              twitterPageNum=1, pageTwitterAppList=list),
                              200, headers)
 
@@ -73,15 +89,19 @@ class twitter(Resource):
 class getTwitterPage(Resource):
     def get(self, pageNum):
         global twitterTokens, noOfAppsPagesTwitter, twitterObj, TwitterAppCount, TwitterAppList
-        twitterObj = getTwitterUser()
         startId, endId = getStartIdAndEndId(pageNum, TwitterAppCount)
         list = getAppList(startId, endId, TwitterAppList, "twitter")
         headers = {'Content-Type': 'text/html'}
-        twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
+        twitterUserAuthorized = True if "twitter_user_token" in session else False
+        profileImage = ""
+        userName = ""
+        if twitterUserAuthorized:
+            profileImage = session["twitterUser"]["profileImage"]
+            userName = session["twitterUser"]["userName"]
         return make_response(
                 render_template('twitter/twitterPage.html', TwitterAuthorized=twitterUserAuthorized,
-                                profilePicture=twitterObj.profileImage,
-                                name=twitterObj.userName, noOfAppsPagesTwitter=noOfAppsPagesTwitter,
+                                profilePicture=profileImage,
+                                name=userName, noOfAppsPagesTwitter=noOfAppsPagesTwitter,
                                 twitterPageNum=1, pageTwitterAppList=list),
                 200, headers)
 
@@ -89,13 +109,18 @@ class getTwitterPage(Resource):
 class getTwitterApp(Resource):
     def get(self, appId):
         global twitterTokens, twitterObj
-        twitterObj = getTwitterUser()
         twitterCommentUrl = common.baseUrl + '/twitter/' + appId
         obj = getTwitterAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
-        twitterUserAuthorized = True if "twitterToken" in twitterTokens else False
+        twitterUserAuthorized = True if "twitter_user_token" in session else False
+        profileImage = ""
+        userName = ""
+        if twitterUserAuthorized:
+            profileImage = session["twitterUser"]["profileImage"]
+            userName = session["twitterUser"]["userName"]
         return make_response(
-            render_template('twitter/twitterAppDetailPage.html', TwitterAuthorized=twitterUserAuthorized,
-                            profilePicture=twitterObj.profileImage,
-                            name=twitterObj.userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl), 200,
-            headers)
+                render_template('twitter/twitterAppDetailPage.html', TwitterAuthorized=twitterUserAuthorized,
+                                profilePicture=profileImage,
+                                name=userName, appDetails=obj, twitterCommentUrl=twitterCommentUrl),
+                200,
+                headers)

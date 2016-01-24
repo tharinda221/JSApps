@@ -23,11 +23,12 @@ class facebookConstants:
     def __init__(self):
         pass
 
+    graphUrl = 'https://graph.facebook.com/'
     secretKey = "810caf413c4786364eb65172fed5a03c"
     appID = "1672045909732059"
     GraphAPIVersion = "v2.5"
-    # redirectURL = "http://" + host + ":" + str(port) + "/callback/facebook"
-    redirectURL = "http://tharinda221.pythonanywhere.com/callback/facebook"
+    redirectURL = "http://" + host + ":" + str(port) + "/callback/facebook"
+    # redirectURL = "http://tharinda221.pythonanywhere.com/callback/facebook"
     baseGraphApiUrl = "https://graph.facebook.com/v2.5/"
     getUserInitInfoUrl = "me?fields=name,birthday,about,bio,email,education,gender," \
                          "id,hometown"
@@ -47,7 +48,6 @@ class twitterConstants:
 
     resource_owner_key = ""
     resource_owner_secret = ""
-    screen_name = ""
     returnURL = ""
 
 

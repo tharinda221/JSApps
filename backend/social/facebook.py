@@ -14,8 +14,8 @@ import logging
 import flask
 
 app = flask.Flask(__name__)
-app.config.from_object(__name__)
-app.secret_key = common.ApplicationSecret
+# app.config.from_object(__name__)
+# app.secret_key = common.ApplicationSecret
 
 FACEBOOK_APP_ID = facebookConstants.appID
 FACEBOOK_APP_SECRET = facebookConstants.secretKey
@@ -24,7 +24,7 @@ REDIRECT_URI = facebookConstants.redirectURL
 returnURL = facebookConstants.returnURL
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-# requests.packages.urllib3.disable_warnings()
+requests.packages.urllib3.disable_warnings()
 
 facebookUserObj = User.facebookUser()
 
@@ -109,6 +109,9 @@ def getFacebookUserInfo(accesstoken):
 
 def getFacebookUser():
     return facebookUserObj
+
+def getFacebookUserJson():
+    return json.dumps(facebookUserObj, default=lambda o: o.__dict__)
 
 
 def getAllAlbums(accesstoken, uid):

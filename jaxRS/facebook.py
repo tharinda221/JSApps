@@ -5,7 +5,7 @@ from backend.frontEndOperaions.indexOperations import *
 # import libraries
 from flask_restful import Resource
 from backend.database.Operations import *
-from flask import render_template, make_response
+from flask import render_template, make_response, session
 
 facebookAppCount = NumberOfFacebookApps()
 FacebookAppList = getFacebookAppsIDList()
@@ -23,9 +23,9 @@ class handleCallbackFacebook(Resource):
         global TOKENS
         global USER
         try:
-            TOKENS["user_token"] = getUserToken(flask.request.args.get("code"))
-            getFacebookUserInfo(TOKENS["user_token"])
-
+            session["facebook_user_token"] = getUserToken(flask.request.args.get("code"))
+            getFacebookUserInfo(session["facebook_user_token"])
+            session["facebookUser"] = json.loads(getFacebookUserJson())
             return flask.redirect(facebookConstants.returnURL)
         except NotAuthorizedException:
             return 'Access was not granted or authorization failed', 403
@@ -40,10 +40,15 @@ class facebook(Resource):
         startId, endId = getStartIdAndEndId(1, facebookAppCount)
         list = getAppList(startId, endId, FacebookAppList, "facebook")
         headers = {'Content-Type': 'text/html'}
-        userAuthorized = True if "user_token" in TOKENS else False
+        userAuthorized = True if "facebook_user_token" in session else False
+        userId = ""
+        userName = ""
+        if userAuthorized:
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
-                                name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
+                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=userId,
+                                name=userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                                 facebookPageNum=1, pageAppList=list),
                 200, headers)
 
@@ -55,10 +60,15 @@ class getFacebookPage(Resource):
         startId, endId = getStartIdAndEndId(pageNum, facebookAppCount)
         list = getAppList(startId, endId, FacebookAppList, "facebook")
         headers = {'Content-Type': 'text/html'}
-        userAuthorized = True if "user_token" in TOKENS else False
+        userAuthorized = True if "facebook_user_token" in session else False
+        userId = ""
+        userName = ""
+        if userAuthorized:
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=facebookUserObj.userId,
-                                name=facebookUserObj.userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
+                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=userId,
+                                name=userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                                 facebookPageNum=pageNum, pageAppList=list),
                 200, headers)
 
@@ -70,9 +80,14 @@ class getFacebookApp(Resource):
         facebookUserObj = getFacebookUser()
         obj = getFacebookAppDetailsById(appId)
         headers = {'Content-Type': 'text/html'}
-        userAuthorized = True if "user_token" in TOKENS else False
+        userAuthorized = True if "facebook_user_token" in session else False
+        userId = ""
+        userName = ""
+        if userAuthorized:
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
         return make_response(
                 render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized,
-                                id=facebookUserObj.userId,
-                                name=facebookUserObj.userName, appDetails=obj, facebookCommentUrl=facebookCommentUrl),
+                                id=userId,
+                                name=userName, appDetails=obj, facebookCommentUrl=facebookCommentUrl),
                 200, headers)
