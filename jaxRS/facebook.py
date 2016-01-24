@@ -1,3 +1,5 @@
+from rauth import OAuth2Service
+
 __author__ = 'tharinda'
 # import classes
 from backend.social.facebook import *
@@ -31,6 +33,33 @@ class handleCallbackFacebook(Resource):
             return 'Access was not granted or authorization failed', 403
         except:
             raise
+
+
+graph_url = 'https://graph.facebook.com/'
+facebookAgent = OAuth2Service(name='facebook',
+                              authorize_url='https://www.facebook.com/dialog/oauth',
+                              access_token_url=graph_url + 'oauth/access_token',
+                              client_id=facebookConstants.appID,
+                              client_secret=facebookConstants.secretKey,
+                              base_url=graph_url)
+
+
+class facebookLogin(Resource):
+    def get(self):
+        facebookConstants.returnURL = flask.request.args.get("redirect")
+        redirect_uri = REDIRECT_URI
+        params = {'redirect_uri': redirect_uri}
+        return flask.redirect(facebookAgent.get_authorize_url(**params))
+class facebookAuthorized(Resource):
+    def get(self):
+        # make a request for the access token credentials using code
+        redirect_uri = REDIRECT_URI
+        data = dict(code=flask.request.args['code'], redirect_uri=redirect_uri)
+        facebookSession = facebookAgent.get_auth_session(data=data)
+        session["facebook_user_token"] = facebookSession.access_token
+        getFacebookUserInfo(session["facebook_user_token"])
+        session["facebookUser"] = json.loads(getFacebookUserJson())
+        return flask.redirect(facebookConstants.returnURL)
 
 
 class facebook(Resource):
