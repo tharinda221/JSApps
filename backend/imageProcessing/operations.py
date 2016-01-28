@@ -26,7 +26,7 @@ def writeTextToImage(text):
 
 
 def readImageFromURL(url):
-    response = requests.get(url, verify=False)
+    response = requests.get(url, verify=True)
     # img = np.array(Image.open(StringIO(response.content)))
     file = StringIO(response.content)
     img = Image.open(file)
