@@ -1,10 +1,14 @@
 # import libraries
-from PIL import Image
+from PIL import Image, ImageSequence
 from PIL import ImageFont
 from PIL import ImageDraw
-
+import requests
+import numpy as np
+from StringIO import StringIO
+from backend.imageProcessing.imagesTogif import writeGif
 # import classes
 import config
+import numpy
 
 
 def writeTextToImage(text):
@@ -19,3 +23,16 @@ def writeTextToImage(text):
     # draw.text((x, y),"Sample Text",(r,g,b))
     draw.text((0, 0), text, (0, 0, 0), font=font)
     img.save(outputFilePath)
+
+
+def readImageFromURL(url):
+    response = requests.get(url, verify=False)
+    # img = np.array(Image.open(StringIO(response.content)))
+    file = StringIO(response.content)
+    img = Image.open(file)
+    image = img.resize((1000, 625), Image.ANTIALIAS)
+    return image
+
+
+def createAGIF(images, filename):
+    writeGif(filename, images, duration=0.5)

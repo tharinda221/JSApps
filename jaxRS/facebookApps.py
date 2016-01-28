@@ -20,7 +20,7 @@ class runFacebookApplication(Resource):
             method = getattr(runApplicaions, method_name)
             if not method:
                 raise Exception("Method %s not implemented" % method_name)
-            method()
+            method(appId)
             print "Finished"
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]

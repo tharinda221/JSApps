@@ -99,6 +99,6 @@ class getFacebookApp(Resource):
 
 class shareFacebookResults(Resource):
     def get(self, appId):
-        sharePost(session["facebook_user_token"], appId)
+        shareGIFPost(session["facebook_user_token"], appId)
         return flask.redirect('/facebook')
 

@@ -83,16 +83,32 @@ def getAlbumFromId(accesstoken, id):
     response = json.loads(resp.text)
     return response
 
+
 def sharePost(accesstoken, appId):
-    url = facebookConstants.baseGraphApiUrl  + "me/feed" + "?access_token=" + \
-              accesstoken + ""
+    url = facebookConstants.baseGraphApiUrl + "me/feed" + "?access_token=" + \
+          accesstoken + ""
     appDetails = getFacebookAppDetailsById(appId)
     payload = {
         'message': appDetails.AppMessage,
-        'link': common.baseUrl + url_for('/facebook/appDetails/', appId=appId),
-        'picture': common.baseUrl + url_for('static', filename='' + appDetails.AppSourceImage),
-        "description" : appDetails.AppDescription,
-        "name" : session["facebookUser"]["userName"]
+        'link': common.baseUrl + '/facebook/appDetails/' + appId,
+        'picture': common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage),
+        "description": appDetails.AppDescription,
+        "name": session["facebookUser"]["userName"]
+    }
+    r = requests.post(url, data=payload)
+
+    print(r.status_code, r.reason)
+
+
+def shareGIFPost(accesstoken, appId):
+    url = facebookConstants.baseGraphApiUrl + "me/feed" + "?access_token=" + \
+          accesstoken + ""
+    appDetails = getFacebookAppDetailsById(appId)
+    print common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage)
+    print appDetails.AppMessage+"(App Link in the first comment)"
+    payload = {
+        'message': appDetails.AppMessage+"(App Link in the first comment)",
+        'link': common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage)
     }
     r = requests.post(url, data=payload)
 
