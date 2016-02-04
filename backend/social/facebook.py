@@ -105,9 +105,9 @@ def shareGIFPost(accesstoken, appId):
           accesstoken + ""
     appDetails = getFacebookAppDetailsById(appId)
     print common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage)
-    print appDetails.AppMessage+"(App Link in the first comment)"
+    print appDetails.AppMessage + "(App Link in the first comment)"
     payload = {
-        'message': appDetails.AppMessage+"(App Link in the first comment)",
+        'message': appDetails.AppMessage + "(App Link in the first comment)",
         'link': common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage)
     }
     r = requests.post(url, data=payload)

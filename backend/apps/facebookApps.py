@@ -1,6 +1,5 @@
 # import libraries
 import dateutil.parser as parser
-from time import sleep
 # import classes
 from jaxRS.facebook import *
 from backend.imageProcessing.operations import *
@@ -36,12 +35,11 @@ class facebookAppsMethods(object):
             profilePicsURLlist.append(profPics['source'])
         images = []
         for profPicURL in profilePicsURLlist:
-            sleep(2)
             images.append(readImageFromURL(profPicURL))
-        createAGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
+        createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
         databaseCollections.facebookAppsCollectionName.update_one({'_id': ObjectId(appId)},
                                                                   {"$set": {
-                                                                      "AppResultImage":  "images/appImages/facebook/app1/result.gif"}}
+                                                                      "AppResultImage": "images/appImages/facebook/app1/result.gif"}}
                                                                   )
 
         # def profileImagesOnAGif(self):

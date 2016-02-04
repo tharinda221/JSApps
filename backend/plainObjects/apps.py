@@ -9,8 +9,10 @@ class facebookApps(object):
                  appusedcount="",
                  appcreatedtimedate="",
                  appdescription="",
-                 appmessage=""
+                 appmessage="",
+                 apptype=""
                  ):
+        self.AppType = apptype
         self.AppMessage = appmessage
         self.AppDescription = appdescription
         self.AppCreatedTimeDate = appcreatedtimedate

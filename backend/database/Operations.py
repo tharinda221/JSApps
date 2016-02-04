@@ -78,7 +78,8 @@ def putFacebookAppsData():
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
                 "AppDescription": "This app will give a image included your memories of past few years",
-                "AppMessage" : "This app will give a image included your memories of past few years"
+                "AppMessage": "My previous memories (App link in the first comment)",
+                "AppType": "gif"
             }
     )
     print("Inserted FacebookApps data")
@@ -126,7 +127,8 @@ def getFacebookAppDetailsById(Id):
                        appresultimage=document["AppResultImage"],
                        appsourceimage=document["AppSourceImage"],
                        appusedcount=document["AppUsedCount"],
-                       appdescription=document["AppDescription"])
+                       appdescription=document["AppDescription"],
+                       apptype=document["AppType"])
     return obj
 
 

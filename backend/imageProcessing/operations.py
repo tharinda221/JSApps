@@ -30,9 +30,9 @@ def readImageFromURL(url):
     # img = np.array(Image.open(StringIO(response.content)))
     file = StringIO(response.content)
     img = Image.open(file)
-    image = img.resize((1000, 625), Image.ANTIALIAS)
+    image = img.resize((1000, 800), Image.ANTIALIAS)
     return image
 
 
-def createAGIF(images, filename):
+def createGIF(images, filename):
     writeGif(filename, images, duration=0.5)
