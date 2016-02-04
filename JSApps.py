@@ -6,6 +6,8 @@ from jaxRS.index import *
 from jaxRS.facebookApps import *
 from jaxRS.twitterApps import *
 from jaxRS.twitter import *
+from jaxRS.about import *
+from jaxRS.privacy import *
 # import libraries
 import flask
 from flask_restful import Api
@@ -32,5 +34,6 @@ api.add_resource(getTwitterApp, '/twitter/appDetails/<appId>', endpoint='/twitte
 api.add_resource(runTwitterApplicaions, '/twitter/runApplication/<appId>', endpoint='/twitter/runApplication/')
 api.add_resource(shareFacebookResults, '/facebook/share/<appId>', endpoint='/facebook/share')
 api.add_resource(shareTwitterResults, '/twitter/share/<appId>', endpoint='/twitter/share')
-
+api.add_resource(about, '/about', endpoint='/about')
+api.add_resource(privacy, '/privacy', endpoint='/privacy')
 

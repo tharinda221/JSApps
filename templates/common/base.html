@@ -34,20 +34,22 @@
 
             {% endblock %}
         </div>
-        <div class="row">
-            <div class="span12" id="content">
-                <ul class="thumbnails">
-                    {% block app %}
+        {% block pageContent %}
+            <div class="row">
+                <div class="span12" id="content">
+                    <ul class="thumbnails">
+                        {% block app %}
 
-                    {% endblock %}
-                </ul>
-                <div class="pagination">
-                    {% block pagination %}
+                        {% endblock %}
+                    </ul>
+                    <div class="pagination">
+                        {% block pagination %}
 
-                    {% endblock %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endblock %}
         <hr>
         <div class="row">
             {% block footer %}
