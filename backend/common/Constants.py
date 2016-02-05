@@ -16,8 +16,8 @@ class common:
 
     ApplicationSecret = ""
     numOfAppsPerPage = 8
-    baseUrl = "http://" + host + ":" + str(port)
-    # baseUrl = "http://jsapps.pythonanywhere.com"
+    # baseUrl = "http://" + host + ":" + str(port)
+    baseUrl = "http://jsapps.co"
 
 
 class facebookConstants:
@@ -25,8 +25,8 @@ class facebookConstants:
         pass
 
     graphUrl = 'https://graph.facebook.com/'
-    secretKey = "aa2bbf6cc9250e919a64292c6da9a447"
-    appID = "954011938018310"
+    secretKey = "ef77aabd222d3c5fe509d1984aa791f6"
+    appID = "1686276391610614"
     GraphAPIVersion = "v2.5"
     redirectURL = common.baseUrl + "/callback/facebook"
     baseGraphApiUrl = "https://graph.facebook.com/v2.5/"
