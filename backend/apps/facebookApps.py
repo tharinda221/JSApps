@@ -27,25 +27,25 @@ class facebookAppsMethods(object):
 
     def TestMethod(self, appId):
         print("Method Accessed")
-        profilePicsAlbumId = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
-                                              "Profile Pictures")
-        profilePicslist = getAlbumFromId(session["facebook_user_token"], profilePicsAlbumId)['data']
-        profilePicsURLlist = []
-        for profPics in profilePicslist:
-            profilePicsURLlist.append(profPics['source'])
-        images = []
-        for profPicURL in profilePicsURLlist:
-            images.append(readImageFromURL(profPicURL))
-        createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
-        databaseCollections.facebookAppsCollectionName.update_one({'_id': ObjectId(appId)},
-                                                                  {"$set": {
-                                                                      "AppResultImage": "images/appImages/facebook/app1/result.gif"}}
-                                                                  )
+        # profilePicsAlbumId = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
+        #                                       "Profile Pictures")
+        # profilePicslist = getAlbumFromId(session["facebook_user_token"], profilePicsAlbumId)['data']
+        # profilePicsURLlist = []
+        # for profPics in profilePicslist:
+        #     profilePicsURLlist.append(profPics['source'])
+        # images = []
+        # for profPicURL in profilePicsURLlist:
+        #     images.append(readImageFromURL(profPicURL))
+        # createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
+        # databaseCollections.facebookAppsCollectionName.update_one({'_id': ObjectId(appId)},
+        #                                                           {"$set": {
+        #                                                               "AppResultImage": "images/appImages/facebook/app1/result.gif"}}
+        #                                                           )
 
-        # def profileImagesOnAGif(self):
-        #     profilePicsURLlist = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
-        #                                           "Profile Pictures")
-        #     images = []
-        #     for profPicURL in profilePicsURLlist:
-        #         images.append(readImageFromURL(profPicURL))
-        #     createAGIF(images=images, filename=config.AppsImagePath+"facebook/app1/result.gif")
+    # def profileImagesOnAGif(self):
+    #     profilePicsURLlist = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
+    #                                           "Profile Pictures")
+    #     images = []
+    #     for profPicURL in profilePicsURLlist:
+    #         images.append(readImageFromURL(profPicURL))
+    #     createAGIF(images=images, filename=config.AppsImagePath+"facebook/app1/result.gif")

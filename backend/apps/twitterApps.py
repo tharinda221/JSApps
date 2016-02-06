@@ -10,7 +10,6 @@ from PIL import ImageDraw
 
 class twitterAppsMethods(object):
     def TestMethod(self):
-        print session["twitter_user_token"]
         text = getTweetsToString(session["twitter_user_token"], session["twitter_user_secret"])
         splitStr = text.split(' ')
         count = 0
