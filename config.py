@@ -14,3 +14,4 @@ databaseName = configData["databaseName"]
 AppsImagePath = BASE_DIR + "/JSApps/static/images/appImages/"
 fontPath = BASE_DIR + "/JSApps/static/fonts/"
 pathToStatic = BASE_DIR + "/JSApps/static/"
+serverImagePath = "/home/ubuntu/JSApps/static/images/appImages/facebook/"

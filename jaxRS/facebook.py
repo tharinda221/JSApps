@@ -27,6 +27,8 @@ class facebookLogin(Resource):
         redirect_uri = REDIRECT_URI
         params = {'redirect_uri': redirect_uri}
         return flask.redirect(facebookAgent.get_authorize_url(**params))
+
+
 class facebookAuthorized(Resource):
     def get(self):
         # make a request for the access token credentials using code
@@ -38,8 +40,10 @@ class facebookAuthorized(Resource):
         session["facebookUser"] = json.loads(getFacebookUserJson())
         return flask.redirect(facebookConstants.returnURL)
 
+
 class facebook(Resource):
     def get(self):
+        print os.path.dirname(__file__)
         global TOKENS, noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
         facebookUserObj = getFacebookUser()
         startId, endId = getStartIdAndEndId(1, facebookAppCount)
@@ -97,8 +101,8 @@ class getFacebookApp(Resource):
                                 name=userName, appDetails=appDetails, facebookCommentUrl=facebookCommentUrl),
                 200, headers)
 
+
 class shareFacebookResults(Resource):
     def get(self, appId):
         shareGIFPost(session["facebook_user_token"], appId)
         return flask.redirect('/facebook')
-
