@@ -36,8 +36,8 @@ class facebookAppsMethods(object):
         images = []
         for profPicURL in profilePicsURLlist:
             images.append(readImageFromURL(profPicURL))
-        # createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
-        createGIF(images=images, filename=config.serverImagePath + "app1/result.gif")
+        createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
+        # createGIF(images=images, filename=config.serverImagePath + "app1/result.gif")
         databaseCollections.facebookAppsCollectionName.update_one({'_id': ObjectId(appId)},
                                                                   {"$set": {
                                                                       "AppResultImage": "images/appImages/facebook/app1/result.gif"}}
