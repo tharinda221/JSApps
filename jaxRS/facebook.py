@@ -43,7 +43,6 @@ class facebookAuthorized(Resource):
 
 class facebook(Resource):
     def get(self):
-        print os.path.dirname(__file__)
         global TOKENS, noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
         facebookUserObj = getFacebookUser()
         startId, endId = getStartIdAndEndId(1, facebookAppCount)
