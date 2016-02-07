@@ -2,12 +2,9 @@
     <div class="thumbnail">
         {#        <a onclick="location.href='/facebook/share/{{ appDetails.AppID }}'"><img width="511px" height="98px"#}
         {#                src="{{ url_for('static', filename='images/common/ShareOnFacebook.jpg') }}"></a>#}
-        <a href="https://www.facebook.com/dialog/share?
-  app_id=1686276391610614
-  &amp;display=popup
-  &amp;href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F
-  &amp;redirect_uri=http://jsapps.co">
-            <img width="511px" height="98px" src="{{ url_for('static', filename='images/common/ShareOnFacebook.jpg') }}"></a>
+        <a href="https://www.facebook.com/dialog/share?app_id=1686276391610614&amp;display=popup&amp;href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&amp;redirect_uri=http://jsapps.co">
+            <img width="511px" height="98px"
+                 src="{{ url_for('static', filename='images/common/ShareOnFacebook.jpg') }}"></a>
 
     </div>
 {% endblock %}
