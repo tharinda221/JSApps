@@ -2,7 +2,7 @@
     <div class="thumbnail">
         {#        <a onclick="location.href='/facebook/share/{{ appDetails.AppID }}'"><img width="511px" height="98px"#}
         {#                src="{{ url_for('static', filename='images/common/ShareOnFacebook.jpg') }}"></a>#}
-        <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1686276391610614&amp;display=popup&amp;href=http://jsapps.co/facebook/appDetails/{{ appDetails.AppID }}&amp;redirect_uri=http://jsapps.co">
+        <a target="_blank" href="https://www.facebook.com/dialog/share?app_id=1686276391610614&amp;display=popup&amp;href=http://jsapps.co/facebook/appDetails/{{ appDetails.AppID }}&amp;picture=http://jsapps.co/static/{{ appDetails.AppResultImage }}&amp;redirect_uri=http://jsapps.co">
             <img width="511px" height="98px"
                  src="{{ url_for('static', filename='images/common/ShareOnFacebook.jpg') }}"></a>
 
