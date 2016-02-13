@@ -4,6 +4,26 @@ padding-bottom:40px;
 padding-top:40px;
 }
 
+.img-app{
+    display: inline-block;
+    position: relative;
+}
+
+.img-login{
+    position: absolute;
+    top:60%;
+    left:25%;
+    height:25%;
+    width: auto;
+    transition: opacity 1s;
+}
+
+.img-login:hover{
+    /*border: 2px solid;*/
+    opacity: 0.6;
+    transition: opacity 1s;
+}
+
 a:link, a:visited, a:hover {
     color: #333;
 }
