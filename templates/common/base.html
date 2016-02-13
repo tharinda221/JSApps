@@ -18,6 +18,7 @@
         <script src="{{ url_for('static', filename='javascripts/jquery-1.7.2.min.js') }}"></script>
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='javascripts/custom.js') }}"></script>
+        <script src="{{ url_for('static', filename='javascripts/bootstrap-paginator.min.js') }}"></script>
 
     {% endblock %}
 </head>
@@ -51,11 +52,10 @@
             </div>
         {% endblock %}
         <hr>
-        <div class="row">
-            {% block footer %}
 
-            {% endblock %}
-        </div>
+        {% block footer %}
+
+        {% endblock %}
     </div>
 {% endblock %}
 
