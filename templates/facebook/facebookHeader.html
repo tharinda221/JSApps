@@ -9,8 +9,7 @@
 {#    {% endif %}#}
     {% if authorized %}
         <div class="pull-right">
-            Hi , {% print(name) %}
-            <img src="https://graph.facebook.com/{% print(id) %}/picture"></a>
+            <span style="font-size: 1.5em; padding-right: 5px">Hi , {% print(name) %}</span> <img src="https://graph.facebook.com/{% print(id) %}/picture"></a>
         </div>
     {% endif %}
 {% endblock %}
