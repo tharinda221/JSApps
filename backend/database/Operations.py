@@ -6,6 +6,7 @@ from backend.plainObjects.user import *
 from backend.plainObjects.apps import *
 from backend.database.getDatabase import *
 from backend.common.Constants import *
+import math
 
 
 def putFacebookUserData(userId,
@@ -112,10 +113,8 @@ def NumberOfFacebookApps():
 
 def numberOfFacebookAppPages():
     total = NumberOfFacebookApps()
-    if total % common.numOfAppsPerPage == 0:
-        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage
-    else:
-        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage + 1
+    # Changed (Irunika)
+    return math.ceil(total/common.numOfAppsPerPage)
 
 
 def getFacebookAppDetailsById(Id):
@@ -138,11 +137,7 @@ def NumberOfTwitterApps():
 
 def numberOfTwitterAppPages():
     total = NumberOfTwitterApps()
-    if total % common.numOfAppsPerPage == 0:
-        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage
-    else:
-        return (total - (total % common.numOfAppsPerPage)) / common.numOfAppsPerPage + 1
-
+    return math.ceil(total/common.numOfAppsPerPage)
 
 def getTwitterAppDetailsById(Id):
     document = databaseCollections.twitterAppsCollectionName.find_one({'_id': ObjectId(Id)})
