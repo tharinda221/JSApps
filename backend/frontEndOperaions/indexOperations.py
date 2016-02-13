@@ -4,7 +4,7 @@ from backend.common.Constants import *
 
 noOfAppsPagesFacebook = numberOfFacebookAppPages() + 1
 noOfAppsPagesTwitter = numberOfTwitterAppPages() + 1
-
+noOfUserCreatableAppsFacebook = numberOfUserCreatableFacebookAppPages() +1
 
 def getAppList(startId, endId, appList, socialname):
     list = []
@@ -14,6 +14,15 @@ def getAppList(startId, endId, appList, socialname):
             list.append(getFacebookAppDetailsById(appList[count]))
         elif socialname == "twitter":
             list.append(getTwitterAppDetailsById(appList[count]))
+        count += 1
+    return list
+
+
+def getUserCretableAppList(startId, endId, appList):
+    list = []
+    count = endId
+    for i in range(endId, startId + 1):
+        list.append(getFacebookUserCreatableAppDetailsById(appList[count]))
         count += 1
     return list
 
