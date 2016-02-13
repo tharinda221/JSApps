@@ -52,7 +52,7 @@ class handleCallbackTwitter(Resource):
                     resource_owner_secret)
             getTwitterUserDetails()
             session["twitterUser"] = json.loads(getTwitterUserJson())
-            return flask.redirect(twitterConstants.returnURL[21:])
+            return flask.redirect(twitterConstants.returnURL[16:])
 
         except NotAuthorizedException:
             return 'Access was not granted or authorization failed', 403
