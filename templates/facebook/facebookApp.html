@@ -8,12 +8,11 @@
                             alt="thumbnail">
                     </a>
                     <div class="caption">
-                        <h2>{{ app.AppName }}</h2>
+                        <h2>{{ app.AppType }}</h2>
                         <p>{{ app.AppDescription }}</p>
 
-<<<<<<< HEAD
                         <hr>
-                        <p><a onclick="location.href='/facebook/appDetails/{{ app.AppID }}'" class="btn">Next→</a></p>
+                        <p><a onclick="location.href= '/facebook/UserCreatableAppsDetails/{{ app.AppID }}'" class="btn">Next→</a></p>
                     </div>
                 {% else %}
                     <a onclick="location.href= '/facebook/appDetails/{{ app.AppID }}'"><img
@@ -27,13 +26,7 @@
                         <hr>
                         <p><a onclick="location.href='/facebook/appDetails/{{ app.AppID }}'" class="btn">Next→</a></p>
                     </div>
-=======
-                    <hr>
-                    <div style="text-align: center;">
-                        <a onclick="location.href='/facebook/appDetails/{{ app.AppID }}'" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-star"></span>use →</a>
-                    </div>
-                </div>
->>>>>>> 6cb6c8211490509585718b5ff98277348bf09bf2
+                {% endif %}
             </div>
         </li>
     {% endfor %}

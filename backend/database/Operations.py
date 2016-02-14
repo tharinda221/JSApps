@@ -102,7 +102,6 @@ def FacebookUserCreatableAppsData():
     )
     print("Inserted FacebookUserCreatableApp data")
 
-
 def putTwitterAppsData():
     databaseCollections.twitterAppsCollectionName.insert(
             {
@@ -156,6 +155,7 @@ def getFacebookAppDetailsById(Id):
 
 def getFacebookUserCreatableAppDetailsById(Id):
     document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(Id)})
+    print document
     obj = facebookUserCreatable(appid=document["_id"],
                        appname=document["AppName"],
                        appmethodname=document["AppMethodName"],
@@ -165,7 +165,7 @@ def getFacebookUserCreatableAppDetailsById(Id):
                        appusedcount=document["AppUsedCount"],
                        appdescription=document["AppDescription"],
                        appmessage=document["AppMessage"],
-                       appparentid=document["AppParentId"]
+                       appparentid=document["AppPerentId"]
     )
     return obj
 
