@@ -34,3 +34,28 @@ class runFacebookApplication(Resource):
                                                  facebookCommentUrl=facebookCommentUrl), 200, headers)
         else:
             return flask.redirect('/facebook/appDetails/' + appId)
+
+class runFacebookUserApplication(Resource):
+    def get(self, appId):
+        userAuthorized = True if "facebook_user_token" in session else False
+        if userAuthorized:
+            obj = getFacebookUserCreatableAppDetailsById(appId)
+            # run method
+            method_name = obj.AppMethodName
+            method = getattr(runApplicaions, method_name)
+            if not method:
+                raise Exception("Method %s not implemented" % method_name)
+            method(appId)
+            print "Finished"
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
+            facebookCommentUrl = common.baseUrl + '/facebook/' + appId
+            obj = getFacebookAppDetailsById(appId)
+            headers = {'Content-Type': 'text/html'}
+
+            return make_response(render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
+                                                 id=userId,
+                                                 name=userName, appDetails=obj,
+                                                 facebookCommentUrl=facebookCommentUrl), 200, headers)
+        else:
+            return flask.redirect('/facebook/appDetails/userApp' + appId)
