@@ -13,7 +13,6 @@ padding-top:40px;
     position: absolute;
     top:60%;
     left:25%;
-    height:25%;
     width: auto;
     transition: opacity 1s;
 }
@@ -26,6 +25,21 @@ padding-top:40px;
 
 a:link, a:visited, a:hover {
     color: #333;
+}
+
+.nav-pills > .active > a,
+.nav-pills > .active > a:hover,.nav-pills > li > a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    border-radius:0px;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    border-bottom-color: #000000;
+        color: #000 !important;
+      background-color: transparent !important;
+}
+.nav-pills > li > a{
+    border-radius:0px;
 }
 
 p.post-date {
@@ -81,31 +95,10 @@ div.pagination ul {
 background:#fff;
 }
 
-#content div.thumbnail {
--webkit-border-radius:0;
--moz-border-radius:0;
-border-radius:0;
-background:#fff;
-padding:0;
+.fb_iframe_widget > span {
 }
-
-#content div.thumbnail > div.category {
-background:#222;
-color:#eee;
-font-size:smaller;
-font-style:italic;
-padding:10px;
-}
-
-#content div.thumbnail > div.category > a,#content div.thumbnail > div.category > a:hover {
-color:#eee;
-}
-
-#content div.thumbnail > div.caption {
-line-height:1.2;
-padding:13px;
-}
-
-#content div.thumbnail > div.caption hr {
-border-style:dotted;
+.fb-comments,
+.fb-comments iframe[style],
+.fb-comments > span {
+	width: 100% !important;
 }

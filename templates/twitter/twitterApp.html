@@ -1,13 +1,13 @@
 {% block app %}
     {% for app in pageTwitterAppList %}
-        <li class="span3">
+        <div class="col-md-3">
             <div class="thumbnail">
                 <a onclick="location.href= '/twitter/appDetails/{{ app.AppID }}'"><img
                         src="{{ url_for('static', filename='' + app.AppImage) }}"
                         alt="thumbnail">
                 </a>
                 <div class="caption">
-                    <h2>{{ app.AppName }}</h2>
+                    <h4>{{ app.AppName }}</h4>
                     <p>{{ app.AppDescription }}</p>
 
                     <hr>
@@ -16,6 +16,6 @@
                     </p>
                 </div>
             </div>
-        </li>
+        </div>
     {% endfor %}
 {% endblock %}

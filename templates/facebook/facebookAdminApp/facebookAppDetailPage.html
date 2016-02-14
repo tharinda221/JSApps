@@ -1,19 +1,17 @@
-{% extends "common/appDetailPage.html" %}
+{% extends "common/base.html" %}
 {% block header %}
     {% include "facebook/common/facebookHeader.html" %}
 {% endblock %}
 {% block Links %}
     {% include "facebook/common/facebookLinks.html" %}
 {% endblock %}
-{% block appDetails %}
-    <div class="row">
-        <div class="span9" id="content">
-            {% block appDetailContent %}
-                {% include "facebook/facebookAdminApp/facebookAppDetailContent.html" %}
-            {% endblock %}
-            {% block comment %}
-                {% include "facebook/common/facebookComment.html" %}
-            {% endblock %}
-        </div>
+{% block pageContent %}
+    <div class="col-md-8">
+        {% block appDetailContent %}
+            {% include "facebook/facebookAdminApp/facebookAppDetailContent.html" %}
+        {% endblock %}
+        {% block comment %}
+            {% include "facebook/common/facebookComment.html" %}
+        {% endblock %}
     </div>
 {% endblock %}
