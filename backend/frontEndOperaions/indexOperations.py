@@ -22,7 +22,6 @@ def getUserCretableAppList(startId, endId, appList):
     list = []
     count = endId
     for i in range(endId, startId + 1):
-        print appList[count]
         list.append(getFacebookUserCreatableAppDetailsById(appList[count]))
         count += 1
     return list

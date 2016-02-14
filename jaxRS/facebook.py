@@ -96,7 +96,7 @@ class getFacebookApp(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized,
+                render_template('facebook/facebookAdminApp/facebookAppDetailPage.html', authorized=userAuthorized,
                                 id=userId,
                                 name=userName, appDetails=appDetails, facebookCommentUrl=facebookCommentUrl),
                 200, headers)
@@ -106,6 +106,7 @@ class shareFacebookResults(Resource):
     def get(self, appId):
         shareGIFPost(session["facebook_user_token"], appId)
         return flask.redirect('/facebook')
+
 
 class getFacebookUserCreatableApps(Resource):
     def get(self, appId):

@@ -28,7 +28,7 @@ class runFacebookApplication(Resource):
             obj = getFacebookAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
-            return make_response(render_template('facebook/facebookAppFinished.html', authorized=userAuthorized,
+            return make_response(render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
                                                  id=userId,
                                                  name=userName, appDetails=obj,
                                                  facebookCommentUrl=facebookCommentUrl), 200, headers)
