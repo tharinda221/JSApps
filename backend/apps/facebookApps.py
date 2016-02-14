@@ -1,6 +1,8 @@
 # import libraries
 import dateutil.parser as parser
 # import classes
+from flask import send_file
+
 from jaxRS.facebook import *
 from backend.imageProcessing.operations import *
 from backend.plainObjects.user import *
@@ -49,3 +51,16 @@ class facebookAppsMethods(object):
     #     for profPicURL in profilePicsURLlist:
     #         images.append(readImageFromURL(profPicURL))
     #     createAGIF(images=images, filename=config.AppsImagePath+"facebook/app1/result.gif")
+
+    def ProfilePicCreator(self, appId):
+        document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(appId)})
+        url = getUserProfilePic(session["facebook_user_token"])
+        background = readImageFromURL(url)
+        foreground = Image.open(config.pathToStatic + document["AppFilteringImage"] + "FilteringImage.png")
+        background.paste(foreground, (0, 0), foreground)
+        output = StringIO()
+        background.save(output, "PNG")
+        contents = output.getvalue().encode("base64")
+        output.close()
+        contents = contents.split('\n')[0]
+        return contents
