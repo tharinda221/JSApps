@@ -42,8 +42,9 @@ def getFacebookUserInfo(accesstoken):
                                         email=response.get("email", ""),
                                         education=response.get("education", []),
                                         about=response.get("about", ""))
-    if getFacebookUserAvailability(facebookUserObj.userId):
-        putFacebookUserData(userId=facebookUserObj.userId,
+
+    if facebookConstants.returnRole == "appOwner":
+            putAppOwnerData(userId=facebookUserObj.userId,
                             userName=facebookUserObj.userName,
                             gender=facebookUserObj.gender,
                             birthDay=facebookUserObj.birthDay,
@@ -51,6 +52,18 @@ def getFacebookUserInfo(accesstoken):
                             email=facebookUserObj.email,
                             education=facebookUserObj.education,
                             about=facebookUserObj.about)
+    else :
+        if getFacebookUserAvailability(facebookUserObj.userId):
+            putFacebookUserData(userId=facebookUserObj.userId,
+                            userName=facebookUserObj.userName,
+                            gender=facebookUserObj.gender,
+                            birthDay=facebookUserObj.birthDay,
+                            hometown=facebookUserObj.hometown,
+                            email=facebookUserObj.email,
+                            education=facebookUserObj.education,
+                            about=facebookUserObj.about)
+
+
 
 
 def getFacebookUser():

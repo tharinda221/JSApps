@@ -6,7 +6,14 @@
             <li><a href="{{ url_for('/privacy') }}">Privacy</a></li>
             <li><a href="{{ url_for('/about') }}">About</a></li>
 
-        <div class="pull-right">
-            <a href="" class="btn btn-default">Create App</a>
-        </div>
+        {% if authorized %}
+            <div class="pull-right">
+                <a href="/facebook/createApp" class="btn btn-default">Create App</a>
+            </div>
+        {% else %}
+            <div class="pull-right">
+                <a href="{{ url_for('/authorize/facebook', redirect="/facebook/createApp") }}" class="btn btn-default">Create App</a>
+            </div>
+        {% endif %}
+
 {% endblock %}
