@@ -10,21 +10,12 @@
         {% block Links %}
             {% include "facebook/common/facebookLinks.html" %}
         {% endblock %}
-        {% block appDetails %}
             <div class="row">
-                <div class="span9" id="content">
                     {% block appFinishedContent %}
                         {% include "facebook/facebookUserApp/createApp/facebookAppFinishedContent.html" %}
                     {% endblock %}
-                    {% block facebookShare %}
-                        {% include "facebook/common/facebookShare.html" %}
-                    {% endblock %}
-                    {% block comment %}
-                        {% include "facebook/common/facebookComment.html" %}
-                    {% endblock %}
                 </div>
             </div>
-        {% endblock %}
         {% block footer %}
             {% include 'common/footer.html' %}
         {% endblock %}
