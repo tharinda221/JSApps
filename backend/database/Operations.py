@@ -155,7 +155,6 @@ def getFacebookAppDetailsById(Id):
 
 def getFacebookUserCreatableAppDetailsById(Id):
     document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(Id)})
-    print document
     obj = facebookUserCreatable(appid=document["_id"],
                        appname=document["AppName"],
                        appmethodname=document["AppMethodName"],
