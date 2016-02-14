@@ -93,20 +93,36 @@ def getTwitterUserAvailability(userScreenName):
 def putFacebookAppsData():
     databaseCollections.facebookAppsCollectionName.insert(
             {
-                "AppName": "Memory Collection",
+                "AppName": "Profile Pic creator",
                 "AppMethodName": "TestMethod",
                 "AppImage": "images/appImages/facebook/app1/appImage.jpg",
                 "AppSourceImage": "images/appImages/facebook/app1/background.jpg",
                 "AppResultImage": "images/appImages/facebook/app1/appResultImage.jpg",
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
-                "AppDescription": "This app will give a image included your memories of past few years",
-                "AppMessage": "My previous memories (App link in the first comment)",
-                "AppType": "gif"
+                "AppDescription": "Use this for your memorable occasion",
+                "AppType": "userCreatable"
             }
     )
-    print("Inserted FacebookApps data")
+    print("Inserted FacebookApp data")
 
+
+def FacebookUserCreatableAppsData():
+    databaseCollections.facebookUserCreatableAppsCollectionName.insert(
+            {
+                "AppName": "Profile Pic creator",
+                "AppMethodName": "TestMethod",
+                "AppImage": "images/appImages/facebook/app1/appImage.jpg",
+                "AppSourceImage": "images/appImages/facebook/app1/background.jpg",
+                "AppFilteringImage": "images/appImages/facebook/app1/appResultImage.jpg",
+                "AppUsedCount": 0,
+                "AppCreatedTime": datetime.datetime.utcnow(),
+                "AppDescription": "Use this for your memorable occasion",
+                "AppMessage": "Change your profile picture against CEPA/ETCA",
+                "AppPerentId": "56bf6355380dab5a65b7935b"
+            }
+    )
+    print("Inserted FacebookUserCreatableApp data")
 
 def putTwitterAppsData():
     databaseCollections.twitterAppsCollectionName.insert(
@@ -133,11 +149,17 @@ def NumberOfFacebookApps():
     return rowCount(databaseCollections.facebookAppsCollectionName)
 
 
+def NumberOfFacebookUserCreatableApps():
+    return rowCount(databaseCollections.facebookUserCreatableAppsCollectionName)
+
+
 def numberOfFacebookAppPages():
     total = NumberOfFacebookApps()
-    # Changed (Irunika)
-    return math.ceil(total/common.numOfAppsPerPage)
+    return math.ceil(total / common.numOfAppsPerPage)
 
+def numberOfUserCreatableFacebookAppPages():
+    total = NumberOfFacebookUserCreatableApps()
+    return math.ceil(total / common.numOfAppsPerPage)
 
 def getFacebookAppDetailsById(Id):
     document = databaseCollections.facebookAppsCollectionName.find_one({'_id': ObjectId(Id)})
@@ -150,8 +172,23 @@ def getFacebookAppDetailsById(Id):
                        appusedcount=document["AppUsedCount"],
                        appdescription=document["AppDescription"],
                        apptype=document["AppType"])
+
     return obj
 
+def getFacebookUserCreatableAppDetailsById(Id):
+    document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(Id)})
+    obj = facebookUserCreatable(appid=document["_id"],
+                       appname=document["AppName"],
+                       appmethodname=document["AppMethodName"],
+                       appimage=document["AppImage"],
+                       appfilteringimage=document["AppFilteringImage"],
+                       appsourceimage=document["AppSourceImage"],
+                       appusedcount=document["AppUsedCount"],
+                       appdescription=document["AppDescription"],
+                       appmessage=document["AppMessage"],
+                       appparentid=document["AppPerentId"]
+    )
+    return obj
 
 def NumberOfTwitterApps():
     return rowCount(databaseCollections.twitterAppsCollectionName)
@@ -159,7 +196,8 @@ def NumberOfTwitterApps():
 
 def numberOfTwitterAppPages():
     total = NumberOfTwitterApps()
-    return math.ceil(total/common.numOfAppsPerPage)
+    return math.ceil(total / common.numOfAppsPerPage)
+
 
 def getTwitterAppDetailsById(Id):
     document = databaseCollections.twitterAppsCollectionName.find_one({'_id': ObjectId(Id)})
@@ -182,4 +220,10 @@ def getTwitterAppsIDList():
 def getFacebookAppsIDList():
     return databaseCollections.facebookAppsCollectionName.distinct('_id')
 
+
+def getFacebookUserCreatableAppsIDList(parentAppId):
+    list = []
+    for data in  databaseCollections.facebookUserCreatableAppsCollectionName.find({"AppPerentId": parentAppId}):
+        list.append(data["_id"])
+    return list
 # def increaseAppCount(dbCollection):

@@ -59,5 +59,6 @@ class databaseCollections:
     userFBCollectionName = getDatabase().facebookUsers
     userTwitterCollectionName = getDatabase().twitterUsers
     facebookAppsCollectionName = getDatabase().facebookApps
+    facebookUserCreatableAppsCollectionName = getDatabase().facebookUserCreatableApps
     twitterAppsCollectionName = getDatabase().twitterApps
     appOwnerCollectionName = getDatabase().appOwners

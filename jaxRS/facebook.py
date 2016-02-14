@@ -11,6 +11,7 @@ from flask import render_template, make_response, session
 
 facebookAppCount = NumberOfFacebookApps()
 FacebookAppList = getFacebookAppsIDList()
+facebookUserCreatableAppCount = NumberOfFacebookUserCreatableApps()
 
 graph_url = 'https://graph.facebook.com/'
 facebookAgent = OAuth2Service(name='facebook',
@@ -95,7 +96,7 @@ class getFacebookApp(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookAppDetailPage.html', authorized=userAuthorized,
+                render_template('facebook/facebookAdminApp/facebookAppDetailPage.html', authorized=userAuthorized,
                                 id=userId,
                                 name=userName, appDetails=appDetails, facebookCommentUrl=facebookCommentUrl),
                 200, headers)
@@ -105,3 +106,23 @@ class shareFacebookResults(Resource):
     def get(self, appId):
         shareGIFPost(session["facebook_user_token"], appId)
         return flask.redirect('/facebook')
+
+
+class getFacebookUserCreatableApps(Resource):
+    def get(self, appId):
+        global noOfUserCreatableAppsFacebook
+        IdList = getFacebookUserCreatableAppsIDList(appId)
+        startId, endId = getStartIdAndEndId(1, facebookUserCreatableAppCount)
+        appList = getUserCretableAppList(startId, endId, IdList)
+        headers = {'Content-Type': 'text/html'}
+        userAuthorized = True if "facebook_user_token" in session else False
+        userId = ""
+        userName = ""
+        if userAuthorized:
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
+        return make_response(
+                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=userId,
+                                name=userName, noOfAppsUserCreatablePagesFacebook=noOfUserCreatableAppsFacebook,
+                                facebookPageNum=1, pageAppList=appList),
+                200, headers)
