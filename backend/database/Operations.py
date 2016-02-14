@@ -108,21 +108,24 @@ def putFacebookAppsData():
 
 
 def FacebookUserCreatableAppsData():
-    databaseCollections.facebookUserCreatableAppsCollectionName.insert(
+    id = databaseCollections.facebookUserCreatableAppsCollectionName.insert({})
+    databaseCollections.facebookUserCreatableAppsCollectionName.save(
             {
+                "_id": ObjectId(id),
                 "AppName": "Profile Pic creator",
-                "AppMethodName": "TestMethod",
-                "AppImage": "images/appImages/facebook/app1/appImage.jpg",
-                "AppSourceImage": "images/appImages/facebook/app1/background.jpg",
-                "AppFilteringImage": "images/appImages/facebook/app1/appResultImage.jpg",
+                "AppMethodName": "ProfilePicCreator",
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
                 "AppDescription": "Use this for your memorable occasion",
                 "AppMessage": "Change your profile picture against CEPA/ETCA",
-                "AppPerentId": "56bf6355380dab5a65b7935b"
+                "AppPerentId": "56bf6355380dab5a65b7935b",
+                "AppImage": "images/appImages/facebook/userApps/" + str(id) + "/appImage.jpg",
+                "AppSourceImage": "images/appImages/facebook/app1/" + str(id) + "/AppSourceImage.jpg",
+                "AppFilteringImage": "images/appImages/facebook/app1/" + str(id) + "/FilteringImage.png"
             }
     )
     print("Inserted FacebookUserCreatableApp data")
+
 
 def putTwitterAppsData():
     databaseCollections.twitterAppsCollectionName.insert(
@@ -157,9 +160,11 @@ def numberOfFacebookAppPages():
     total = NumberOfFacebookApps()
     return math.ceil(total / common.numOfAppsPerPage)
 
+
 def numberOfUserCreatableFacebookAppPages():
     total = NumberOfFacebookUserCreatableApps()
     return math.ceil(total / common.numOfAppsPerPage)
+
 
 def getFacebookAppDetailsById(Id):
     document = databaseCollections.facebookAppsCollectionName.find_one({'_id': ObjectId(Id)})
@@ -175,20 +180,22 @@ def getFacebookAppDetailsById(Id):
 
     return obj
 
+
 def getFacebookUserCreatableAppDetailsById(Id):
     document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(Id)})
     obj = facebookUserCreatable(appid=document["_id"],
-                       appname=document["AppName"],
-                       appmethodname=document["AppMethodName"],
-                       appimage=document["AppImage"],
-                       appfilteringimage=document["AppFilteringImage"],
-                       appsourceimage=document["AppSourceImage"],
-                       appusedcount=document["AppUsedCount"],
-                       appdescription=document["AppDescription"],
-                       appmessage=document["AppMessage"],
-                       appparentid=document["AppPerentId"]
-    )
+                                appname=document["AppName"],
+                                appmethodname=document["AppMethodName"],
+                                appimage=document["AppImage"],
+                                appfilteringimage=document["AppFilteringImage"],
+                                appsourceimage=document["AppSourceImage"],
+                                appusedcount=document["AppUsedCount"],
+                                appdescription=document["AppDescription"],
+                                appmessage=document["AppMessage"],
+                                appparentid=document["AppPerentId"]
+                                )
     return obj
+
 
 def NumberOfTwitterApps():
     return rowCount(databaseCollections.twitterAppsCollectionName)
@@ -223,7 +230,8 @@ def getFacebookAppsIDList():
 
 def getFacebookUserCreatableAppsIDList(parentAppId):
     list = []
-    for data in  databaseCollections.facebookUserCreatableAppsCollectionName.find({"AppPerentId": parentAppId}):
+    for data in databaseCollections.facebookUserCreatableAppsCollectionName.find({"AppPerentId": parentAppId}):
         list.append(data["_id"])
     return list
+
 # def increaseAppCount(dbCollection):

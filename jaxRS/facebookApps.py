@@ -28,12 +28,14 @@ class runFacebookApplication(Resource):
             obj = getFacebookAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
-            return make_response(render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
-                                                 id=userId,
-                                                 name=userName, appDetails=obj,
-                                                 facebookCommentUrl=facebookCommentUrl), 200, headers)
+            return make_response(
+                render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
+                                id=userId,
+                                name=userName, appDetails=obj,
+                                facebookCommentUrl=facebookCommentUrl), 200, headers)
         else:
             return flask.redirect('/facebook/appDetails/' + appId)
+
 
 class runFacebookUserApplication(Resource):
     def get(self, appId):
@@ -45,7 +47,7 @@ class runFacebookUserApplication(Resource):
             method = getattr(runApplicaions, method_name)
             if not method:
                 raise Exception("Method %s not implemented" % method_name)
-            method(appId)
+            session["image"] = method(appId)
             print "Finished"
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
@@ -53,9 +55,10 @@ class runFacebookUserApplication(Resource):
             obj = getFacebookAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
-            return make_response(render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
-                                                 id=userId,
-                                                 name=userName, appDetails=obj,
-                                                 facebookCommentUrl=facebookCommentUrl), 200, headers)
+            return make_response(
+                render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
+                                id=userId,
+                                name=userName, appDetails=obj,
+                                facebookCommentUrl=facebookCommentUrl, image=session["image"]), 200, headers)
         else:
             return flask.redirect('/facebook/appDetails/userApp' + appId)
