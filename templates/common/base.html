@@ -28,35 +28,36 @@
 <body>
 {% block content %}
     <div class="container">
-       <div>
+       <div class="row">
             {% block header %}
             {% endblock %}
        </div>
+
         <div class="row">
             {% block Links %}
-
             {% endblock %}
         </div>
-        {% block pageContent %}
-            <div class="row">
-                <div class="span12" id="content">
-                    <ul class="thumbnails">
-                        {% block app %}
 
-                        {% endblock %}
-                    </ul>
-                    <div class="pagination">
-                        {% block pagination %}
+        <div class="row" style="margin-top: 10px;">
+            {% block pageContent %}
+                    <div id="content">
+                        <ul class="thumbnails">
+                            {% block app %}
 
-                        {% endblock %}
+                            {% endblock %}
+                        </ul>
+                        <div class="pagination">
+                            {% block pagination %}
+
+                            {% endblock %}
+                        </div>
                     </div>
-                </div>
-            </div>
-        {% endblock %}
+            {% endblock %}
+        </div>
+
         <hr>
 
         {% block footer %}
-
         {% endblock %}
     </div>
 {% endblock %}

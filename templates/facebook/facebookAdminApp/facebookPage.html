@@ -5,8 +5,10 @@
 {% block Links %}
     {% include "facebook/common/facebookLinks.html" %}
 {% endblock %}
-{% block app %}
-    {% include "facebook/facebookAdminApp/facebookApp.html" %}
+{% block pageContent %}
+    {% block app %}
+        {% include "facebook/facebookAdminApp/facebookApp.html" %}
+    {% endblock %}
 {% endblock %}
 {% block pagination %}
     {% include "facebook/common/facebookPagination.html" %}

@@ -1,9 +1,3 @@
 {% block appDetailContent %}
-    <ul class="thumbnails">
-        <li class="span9">
-            <div class="thumbnail">
-                 <img src="data:image/png;base64,' + {{ image }} + ' />
-            </div>
-        </li>
-    </ul>
+    <img class="img img-responsive" height="400px" src="{{ url_for('static', filename='' + appDetails.AppResultImage) }}"></a>
 {% endblock %}

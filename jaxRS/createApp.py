@@ -25,7 +25,7 @@ class createApp(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookUserApp/createApp/facebookAppFinished.html', authorized=userAuthorized, id=userId,
+                render_template('facebook/userApp/createApp/createApp.html', authorized=userAuthorized, id=userId,
                                 name=userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                                 facebookPageNum=1, pageAppList=list),
                 200, headers)
