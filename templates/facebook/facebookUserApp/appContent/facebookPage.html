@@ -1,0 +1,13 @@
+{% extends "common/index.html" %}
+{% block header %}
+    {% include "facebook/common/facebookHeader.html" %}
+{% endblock %}
+{% block Links %}
+    {% include "facebook/facebookUserApp/appContent/facebookLinks.html" %}
+{% endblock %}
+{% block app %}
+    {% include "facebook/facebookUserApp/appContent/facebookApp.html" %}
+{% endblock %}
+{% block pagination %}
+    {% include "facebook/common/facebookPagination.html" %}
+{% endblock %}

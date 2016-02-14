@@ -56,7 +56,7 @@ class facebook(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=userId,
+                render_template('facebook/facebookAdminApp/facebookPage.html', authorized=userAuthorized, id=userId,
                                 name=userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                                 facebookPageNum=1, pageAppList=list),
                 200, headers)
@@ -76,7 +76,7 @@ class getFacebookPage(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=userId,
+                render_template('facebook/facebookAdminApp/facebookPage.html', authorized=userAuthorized, id=userId,
                                 name=userName, noOfAppsPagesFacebook=noOfAppsPagesFacebook,
                                 facebookPageNum=pageNum, pageAppList=list),
                 200, headers)
@@ -102,6 +102,26 @@ class getFacebookApp(Resource):
                 200, headers)
 
 
+class getFacebookUserApp(Resource):
+    def get(self, appId):
+        global TOKENS, facebookUserObj
+        facebookCommentUrl = common.baseUrl + '/facebook/' + appId
+        facebookUserObj = getFacebookUser()
+        appDetails = getFacebookUserCreatableAppDetailsById(appId)
+        headers = {'Content-Type': 'text/html'}
+        userAuthorized = True if "facebook_user_token" in session else False
+        userId = ""
+        userName = ""
+        if userAuthorized:
+            userId = session["facebookUser"]["userId"]
+            userName = session["facebookUser"]["userName"]
+        return make_response(
+                render_template('facebook/facebookAdminApp/facebookAppDetailPage.html', authorized=userAuthorized,
+                                id=userId,
+                                name=userName, appDetails=appDetails, facebookCommentUrl=facebookCommentUrl),
+                200, headers)
+
+
 class shareFacebookResults(Resource):
     def get(self, appId):
         shareGIFPost(session["facebook_user_token"], appId)
@@ -109,10 +129,10 @@ class shareFacebookResults(Resource):
 
 
 class getFacebookUserCreatableApps(Resource):
-    def get(self, appId):
+    def get(self, appId, pageNum):
         global noOfUserCreatableAppsFacebook
         IdList = getFacebookUserCreatableAppsIDList(appId)
-        startId, endId = getStartIdAndEndId(1, facebookUserCreatableAppCount)
+        startId, endId = getStartIdAndEndId(pageNum, facebookUserCreatableAppCount)
         appList = getUserCretableAppList(startId, endId, IdList)
         headers = {'Content-Type': 'text/html'}
         userAuthorized = True if "facebook_user_token" in session else False
@@ -122,7 +142,7 @@ class getFacebookUserCreatableApps(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookPage.html', authorized=userAuthorized, id=userId,
+                render_template('facebook/facebookUserApp/appContent/facebookPage.html', authorized=userAuthorized, id=userId,
                                 name=userName, noOfAppsUserCreatablePagesFacebook=noOfUserCreatableAppsFacebook,
-                                facebookPageNum=1, pageAppList=appList),
+                                facebookPageNum=pageNum, pageAppList=appList),
                 200, headers)
