@@ -1,9 +1,9 @@
 {% extends "common/appDetailPage.html" %}
 {% block header %}
-    {% include "facebook/facebookHeader.html" %}
+    {% include "facebook/common/facebookHeader.html" %}
 {% endblock %}
 {% block Links %}
-    {% include "facebook/facebookLinks.html" %}
+    {% include "facebook/common/facebookLinks.html" %}
 {% endblock %}
 {% block appDetails %}
     <div class="row">
@@ -12,7 +12,7 @@
                 {% include "facebook/facebookAdminApp/facebookAppDetailContent.html" %}
             {% endblock %}
             {% block comment %}
-                {% include "facebook/facebookComment.html" %}
+                {% include "facebook/common/facebookComment.html" %}
             {% endblock %}
         </div>
     </div>

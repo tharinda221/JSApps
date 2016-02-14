@@ -3,7 +3,7 @@
         <li class="span3">
             <div class="thumbnail">
                 {% if app.AppType == "userCreatable" %}
-                    <a onclick="location.href= '/facebook/UserCreatableAppsDetails/{{ app.AppID }}'"><img
+                    <a onclick="location.href= '/facebook/UserCreatableAppsDetails/{{ app.AppID }}/1'"><img
                             src="{{ url_for('static', filename='' + app.AppImage) }}"
                             alt="thumbnail">
                     </a>
@@ -12,7 +12,7 @@
                         <p>{{ app.AppDescription }}</p>
 
                         <hr>
-                        <p><a onclick="location.href= '/facebook/UserCreatableAppsDetails/{{ app.AppID }}'" class="btn">Next→</a></p>
+                        <p><a onclick="location.href= '/facebook/UserCreatableAppsDetails/{{ app.AppID }}/1'" class="btn">Next→</a></p>
                     </div>
                 {% else %}
                     <a onclick="location.href= '/facebook/appDetails/{{ app.AppID }}'"><img

@@ -4,10 +4,10 @@
 {% block content %}
     <div class="container">
         {% block header %}
-            {% include "facebook/facebookHeader.html" %}
+            {% include "facebook/common/facebookHeader.html" %}
         {% endblock %}
         {% block Links %}
-            {% include "facebook/facebookLinks.html" %}
+            {% include "facebook/common/facebookLinks.html" %}
         {% endblock %}
         {% block appDetails %}
             <div class="row">
@@ -16,10 +16,10 @@
                         {% include "facebook/facebookAdminApp/facebookAppFinishedContent.html" %}
                     {% endblock %}
                     {% block facebookShare %}
-                        {% include "facebook/facebookShare.html" %}
+                        {% include "facebook/common/facebookShare.html" %}
                     {% endblock %}
                     {% block comment %}
-                        {% include "facebook/facebookComment.html" %}
+                        {% include "facebook/common/facebookComment.html" %}
                     {% endblock %}
                 </div>
             </div>
