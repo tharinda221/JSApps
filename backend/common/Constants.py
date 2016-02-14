@@ -33,6 +33,7 @@ class facebookConstants:
     getUserInitInfoUrl = "me?fields=name,birthday,about,bio,email,education,gender," \
                          "id,hometown"
     returnURL = ""
+    returnRole = ""
 
 
 class twitterConstants:
@@ -60,3 +61,4 @@ class databaseCollections:
     facebookAppsCollectionName = getDatabase().facebookApps
     facebookUserCreatableAppsCollectionName = getDatabase().facebookUserCreatableApps
     twitterAppsCollectionName = getDatabase().twitterApps
+    appOwnerCollectionName = getDatabase().appOwners

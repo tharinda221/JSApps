@@ -53,6 +53,28 @@ def putTwitterUserData(userId,
     )
     print("Inserted twitterUser data")
 
+def putAppOwnerData(userId,
+                        userName,
+                        gender,
+                        birthDay,
+                        hometown,
+                        email,
+                        education,
+                        about):
+    databaseCollections.appOwnerCollectionName.insert_one(
+            {
+                "userId": userId,
+                "userName": userName,
+                "gender": gender,
+                "birthday": birthDay,
+                "hometown": hometown,
+                "email": email,
+                "education": education,
+                "about": about
+            }
+    )
+    print("Inserted App owners data")
+
 
 def getFacebookUserAvailability(userId):
     if databaseCollections.userFBCollectionName.find({'userId': userId}).count() > 0:
@@ -211,4 +233,5 @@ def getFacebookUserCreatableAppsIDList(parentAppId):
     for data in databaseCollections.facebookUserCreatableAppsCollectionName.find({"AppPerentId": parentAppId}):
         list.append(data["_id"])
     return list
-    # def increaseAppCount(dbCollection):
+
+# def increaseAppCount(dbCollection):

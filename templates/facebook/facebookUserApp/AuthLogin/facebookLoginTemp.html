@@ -1,0 +1,15 @@
+{% block appDetailContent %}
+   <div>
+        <ul class="thumbnails">
+            <li class="span9">
+                <div class="thumbnail">
+                    <div class="img-app">
+                        <img src="../../../../static/images/bg.jpg" class="img-responsive">
+                        <a href="{{ url_for('/authorize/facebook', redirect=request.url) }}">
+                            <img class="img-login img-responsive" src="{{ url_for('static', filename='images/common/facebook-login-button.png') }}"></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+   </div>
+{% endblock %}

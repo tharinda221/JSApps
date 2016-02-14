@@ -142,7 +142,7 @@ class getFacebookUserCreatableApps(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookAdminApp/facebookPage.html', authorized=userAuthorized, id=userId,
+                render_template('facebook/facebookUserApp/appContent/facebookPage.html', authorized=userAuthorized, id=userId,
                                 name=userName, noOfAppsUserCreatablePagesFacebook=noOfUserCreatableAppsFacebook,
                                 facebookPageNum=pageNum, pageAppList=appList),
                 200, headers)
