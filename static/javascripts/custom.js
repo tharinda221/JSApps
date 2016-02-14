@@ -6,4 +6,7 @@
                 $('.mytooltip').tooltip({'placement':'top', 'trigger' : 'hover'});
             });
         }
-    }
+    };
+
+
+
