@@ -1,4 +1,6 @@
 # import libraries
+import base64
+
 import dateutil.parser as parser
 # import classes
 from flask import send_file
@@ -56,11 +58,9 @@ class facebookAppsMethods(object):
         document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(appId)})
         url = getUserProfilePic(session["facebook_user_token"])
         background = readImageFromURL(url)
-        foreground = Image.open(config.pathToStatic + document["AppFilteringImage"] + "FilteringImage.png")
+        foreground = Image.open(config.pathToStatic + document["AppFilteringImage"])
         background.paste(foreground, (0, 0), foreground)
-        output = StringIO()
-        background.save(output, "PNG")
-        contents = output.getvalue().encode("base64")
-        output.close()
-        contents = contents.split('\n')[0]
-        return contents
+        buffer = StringIO()
+        background.save(buffer, format="JPEG")
+        img_str = base64.b64encode(buffer.getvalue())
+        return img_str

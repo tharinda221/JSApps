@@ -48,11 +48,11 @@ class runFacebookUserApplication(Resource):
             if not method:
                 raise Exception("Method %s not implemented" % method_name)
             session["image"] = method(appId)
-            print "Finished"
+            print session["image"]
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
             facebookCommentUrl = common.baseUrl + '/facebook/' + appId
-            obj = getFacebookAppDetailsById(appId)
+            obj = getFacebookUserCreatableAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
             return make_response(

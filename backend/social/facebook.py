@@ -1,3 +1,4 @@
+import urllib
 import urllib2
 
 __author__ = 'tharinda'
@@ -44,26 +45,24 @@ def getFacebookUserInfo(accesstoken):
                                         about=response.get("about", ""))
 
     if facebookConstants.returnRole == "appOwner":
-            putAppOwnerData(userId=facebookUserObj.userId,
-                            userName=facebookUserObj.userName,
-                            gender=facebookUserObj.gender,
-                            birthDay=facebookUserObj.birthDay,
-                            hometown=facebookUserObj.hometown,
-                            email=facebookUserObj.email,
-                            education=facebookUserObj.education,
-                            about=facebookUserObj.about)
-    else :
+        putAppOwnerData(userId=facebookUserObj.userId,
+                        userName=facebookUserObj.userName,
+                        gender=facebookUserObj.gender,
+                        birthDay=facebookUserObj.birthDay,
+                        hometown=facebookUserObj.hometown,
+                        email=facebookUserObj.email,
+                        education=facebookUserObj.education,
+                        about=facebookUserObj.about)
+    else:
         if getFacebookUserAvailability(facebookUserObj.userId):
             putFacebookUserData(userId=facebookUserObj.userId,
-                            userName=facebookUserObj.userName,
-                            gender=facebookUserObj.gender,
-                            birthDay=facebookUserObj.birthDay,
-                            hometown=facebookUserObj.hometown,
-                            email=facebookUserObj.email,
-                            education=facebookUserObj.education,
-                            about=facebookUserObj.about)
-
-
+                                userName=facebookUserObj.userName,
+                                gender=facebookUserObj.gender,
+                                birthDay=facebookUserObj.birthDay,
+                                hometown=facebookUserObj.hometown,
+                                email=facebookUserObj.email,
+                                education=facebookUserObj.education,
+                                about=facebookUserObj.about)
 
 
 def getFacebookUser():
@@ -80,13 +79,13 @@ def getAllAlbums(accesstoken, uid):
     response = json.loads(resp.text)
     return response
 
+
 def getUserProfilePic(accesstoken):
-    url = facebookConstants.baseGraphApiUrl + "me/picture?width=720&height=720" + accesstoken + ""
-    print url
-    resp = requests.get(url)
-    response = json.loads(resp.text)
-    print response
-    return response["data"]["url"]
+    url = facebookConstants.baseGraphApiUrl + "me/picture?width=720&height=720&access_token=" + accesstoken + ""
+    # resp = requests.get(url)
+    # response = json.loads(str(resp.text))
+    return url
+
 
 def getAlbumIdByName(accesstoken, uid, name):
     response = getAllAlbums(accesstoken, uid)
@@ -99,8 +98,7 @@ def getAlbumIdByName(accesstoken, uid, name):
 def getAlbumFromId(accesstoken, id):
     url = facebookConstants.baseGraphApiUrl + id + "/photos?fields=name,source,id,created_time" + "&access_token=" + \
           accesstoken + ""
-    resp = requests.get(url)
-    response = json.loads(resp.text)
+    response = requests.get(url).json()
     return response
 
 
