@@ -5,7 +5,7 @@ import dateutil.parser as parser
 # import classes
 from flask import send_file
 
-from jaxRS.facebook import *
+from restfulServices.facebook import *
 from backend.imageProcessing.operations import *
 from backend.plainObjects.user import *
 import config

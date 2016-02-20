@@ -44,7 +44,7 @@ class facebookAuthorized(Resource):
 
 class facebook(Resource):
     def get(self):
-        global TOKENS, noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
+        global noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
         facebookUserObj = getFacebookUser()
         startId, endId = getStartIdAndEndId(1, facebookAppCount)
         list = getAppList(startId, endId, FacebookAppList, "facebook")
@@ -64,7 +64,7 @@ class facebook(Resource):
 
 class getFacebookPage(Resource):
     def get(self, pageNum):
-        global TOKENS, noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
+        global noOfAppsPagesFacebook, facebookUserObj, facebookAppCount, FacebookAppList
         facebookUserObj = getFacebookUser()
         startId, endId = getStartIdAndEndId(pageNum, facebookAppCount)
         list = getAppList(startId, endId, FacebookAppList, "facebook")
@@ -84,7 +84,7 @@ class getFacebookPage(Resource):
 
 class getFacebookApp(Resource):
     def get(self, appId):
-        global TOKENS, facebookUserObj
+        global facebookUserObj
         facebookCommentUrl = common.baseUrl + '/facebook/' + appId
         facebookUserObj = getFacebookUser()
         appDetails = getFacebookAppDetailsById(appId)
@@ -104,7 +104,7 @@ class getFacebookApp(Resource):
 
 class getFacebookUserApp(Resource):
     def get(self, appId):
-        global TOKENS, facebookUserObj
+        global facebookUserObj
         facebookCommentUrl = common.baseUrl + '/facebook/' + appId
         facebookUserObj = getFacebookUser()
         appDetails = getFacebookUserCreatableAppDetailsById(appId)
@@ -116,7 +116,7 @@ class getFacebookUserApp(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/facebookAdminApp/facebookAppDetailPage.html', authorized=userAuthorized,
+                render_template('facebook/userApp/appDetailsContent/appDetails.html', authorized=userAuthorized,
                                 id=userId,
                                 name=userName, appDetails=appDetails, facebookCommentUrl=facebookCommentUrl),
                 200, headers)
@@ -142,7 +142,7 @@ class getFacebookUserCreatableApps(Resource):
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
         return make_response(
-                render_template('facebook/userApp/appContent/appDetails.html', authorized=userAuthorized, id=userId,
+                render_template('facebook/userApp/appContent/app.html', authorized=userAuthorized, id=userId,
                                 name=userName, noOfAppsUserCreatablePagesFacebook=noOfUserCreatableAppsFacebook,
                                 facebookPageNum=pageNum, pageAppList=appList),
                 200, headers)

@@ -65,6 +65,9 @@ def getFacebookUserInfo(accesstoken):
                                 about=facebookUserObj.about)
 
 
+# def facebookUserCreatableAppData():
+
+
 def getFacebookUser():
     return facebookUserObj
 

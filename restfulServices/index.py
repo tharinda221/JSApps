@@ -1,6 +1,6 @@
 __author__ = 'tharinda'
 # import classes
-from jaxRS.facebook import *
+from restfulServices.facebook import *
 from backend.plainObjects.user import *
 from backend.database.Operations import *
 from backend.frontEndOperaions.indexOperations import *

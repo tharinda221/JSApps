@@ -1,14 +1,14 @@
 __author__ = 'tharinda'
 
 # import classes
-from jaxRS.facebook import *
-from jaxRS.index import *
-from jaxRS.facebookApps import *
-from jaxRS.twitterApps import *
-from jaxRS.twitter import *
-from jaxRS.about import *
-from jaxRS.privacy import *
-from jaxRS.createApp import *
+from restfulServices.facebook import *
+from restfulServices.index import *
+from restfulServices.facebookApps import *
+from restfulServices.twitterApps import *
+from restfulServices.twitter import *
+from restfulServices.about import *
+from restfulServices.privacy import *
+from restfulServices.createApp import *
 # import libraries
 import flask
 from flask_restful import Api

@@ -48,7 +48,6 @@ class runFacebookUserApplication(Resource):
             if not method:
                 raise Exception("Method %s not implemented" % method_name)
             session["image"] = method(appId)
-            print session["image"]
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
             facebookCommentUrl = common.baseUrl + '/facebook/' + appId
