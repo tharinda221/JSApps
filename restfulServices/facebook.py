@@ -1,10 +1,11 @@
-from rauth import OAuth2Service
+
 
 __author__ = 'tharinda'
 # import classes
 from backend.social.facebook import *
 from backend.frontEndOperaions.indexOperations import *
 # import libraries
+from rauth import OAuth2Service
 from flask_restful import Resource
 from backend.database.Operations import *
 from flask import render_template, make_response, session
@@ -12,6 +13,7 @@ from flask import render_template, make_response, session
 facebookAppCount = NumberOfFacebookApps()
 FacebookAppList = getFacebookAppsIDList()
 facebookUserCreatableAppCount = NumberOfFacebookUserCreatableApps()
+runApplicaions = facebookAppsMethods()
 
 graph_url = 'https://graph.facebook.com/'
 facebookAgent = OAuth2Service(name='facebook',
@@ -124,7 +126,7 @@ class getFacebookUserApp(Resource):
 
 class shareFacebookResults(Resource):
     def get(self, appId):
-        shareGIFPost(session["facebook_user_token"], appId)
+        shareUserCreatedPic(session["facebook_user_token"], appId)
         return flask.redirect('/facebook')
 
 

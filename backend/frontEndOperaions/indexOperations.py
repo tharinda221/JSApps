@@ -1,6 +1,7 @@
 # import classes
 from backend.database.Operations import *
 from backend.common.Constants import *
+from backend.apps.facebookApps import *
 
 noOfAppsPagesFacebook = numberOfFacebookAppPages() + 1
 noOfAppsPagesTwitter = numberOfTwitterAppPages() + 1

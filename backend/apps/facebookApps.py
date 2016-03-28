@@ -2,13 +2,17 @@
 import base64
 
 import dateutil.parser as parser
+from random import randint
 # import classes
-from flask import send_file
-
 from restfulServices.facebook import *
 from backend.imageProcessing.operations import *
 from backend.plainObjects.user import *
 import config
+
+def random_with_N_digits(n):
+    range_start = 10**(n-1)
+    range_end = (10**n)-1
+    return randint(range_start, range_end)
 
 
 class facebookAppsMethods(object):
@@ -31,28 +35,26 @@ class facebookAppsMethods(object):
 
     def TestMethod(self, appId):
         print("Method Accessed")
-        # profilePicsAlbumId = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
-        #                                       "Profile Pictures")
-        # profilePicslist = getAlbumFromId(session["facebook_user_token"], profilePicsAlbumId)['data']
-        # profilePicsURLlist = []
-        # for profPics in profilePicslist:
-        #     profilePicsURLlist.append(profPics['source'])
-        # images = []
-        # for profPicURL in profilePicsURLlist:
-        #     images.append(readImageFromURL(profPicURL))
-        # createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
-        # databaseCollections.facebookAppsCollectionName.update_one({'_id': ObjectId(appId)},
-        #                                                           {"$set": {
-        #                                                               "AppResultImage": "images/appImages/facebook/app1/result.gif"}}
-        #                                                           )
+        document = databaseCollections.facebookAppsCollectionName.find_one({'_id': ObjectId(appId)})
+        background = Image.open(config.pathToStatic + document["AppResultImage"])
+        fileName = str(random_with_N_digits(24))
+        print config.AppsImagePath + "facebook/app1/" + fileName + ".jpg"
+        background.save(config.AppsImagePath + "facebook/app1/" + fileName + ".jpg")
+        return config.AppsImagePath + "facebook/app1/" + fileName + ".jpg"
 
-    # def profileImagesOnAGif(self):
-    #     profilePicsURLlist = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
-    #                                           "Profile Pictures")
-    #     images = []
-    #     for profPicURL in profilePicsURLlist:
-    #         images.append(readImageFromURL(profPicURL))
-    #     createAGIF(images=images, filename=config.AppsImagePath+"facebook/app1/result.gif")
+
+    def profileImagesOnAGif(self):
+        profilePicsAlbumId = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
+                                              "Profile Pictures")
+        profilePicslist = getAlbumFromId(session["facebook_user_token"], profilePicsAlbumId)['data']
+        profilePicsURLlist = []
+        for profPics in profilePicslist:
+            profilePicsURLlist.append(profPics['source'])
+        images = []
+        for profPicURL in profilePicsURLlist:
+            images.append(readImageFromURL(profPicURL))
+        createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
+
 
     def ProfilePicCreator(self, appId):
         document = databaseCollections.facebookUserCreatableAppsCollectionName.find_one({'_id': ObjectId(appId)})
@@ -60,7 +62,6 @@ class facebookAppsMethods(object):
         background = readImageFromURL(url)
         foreground = Image.open(config.pathToStatic + document["AppFilteringImage"])
         background.paste(foreground, (0, 0), foreground)
-        buffer = StringIO()
-        background.save(buffer, format="JPEG")
-        img_str = base64.b64encode(buffer.getvalue())
-        return img_str
+        fileName = str(random_with_N_digits(24))
+        background.save(config.pathToUserImage + appId + "/" + fileName + ".jpg")
+        return config.pathToUserImage + appId + "/" + fileName + ".jpg"

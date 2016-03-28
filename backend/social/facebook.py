@@ -1,5 +1,9 @@
-import urllib
-import urllib2
+import base64
+from PIL import Image
+from io import BytesIO
+
+from StringIO import StringIO
+from facepy import GraphAPI
 
 __author__ = 'tharinda'
 
@@ -12,10 +16,6 @@ from flask import session, url_for
 import requests
 import logging
 import flask
-
-app = flask.Flask(__name__)
-# app.config.from_object(__name__)
-# app.secret_key = common.ApplicationSecret
 
 FACEBOOK_APP_ID = facebookConstants.appID
 FACEBOOK_APP_SECRET = facebookConstants.secretKey
@@ -125,8 +125,6 @@ def shareGIFPost(accesstoken, appId):
     url = facebookConstants.baseGraphApiUrl + "me/feed" + "?access_token=" + \
           accesstoken + ""
     appDetails = getFacebookAppDetailsById(appId)
-    print common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage)
-    print appDetails.AppMessage + "(App Link in the first comment)"
     payload = {
         'message': appDetails.AppMessage + "(App Link in the first comment)",
         'link': common.baseUrl + url_for('static', filename='' + appDetails.AppResultImage)
@@ -134,3 +132,14 @@ def shareGIFPost(accesstoken, appId):
     r = requests.post(url, data=payload)
 
     print(r.status_code, r.reason)
+
+def shareUserCreatedPic(accesstoken, appId):
+    appDetails = getFacebookUserCreatableAppDetailsById(appId)
+    url = facebookConstants.baseGraphApiUrl + "me/feed" + "?access_token=" + \
+          accesstoken + ""
+    payload = {
+        'message': appDetails.AppMessage + "(App Link in the first comment)",
+        'source' : common.baseUrl + "/image/" + str(appDetails.AppID)
+    }
+    r = requests.post(url, data=payload)
+    print r

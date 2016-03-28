@@ -15,9 +15,8 @@
                         <p><a onclick="location.href= '/facebook/UserCreatableAppsDetails/{{ app.AppID }}/1'" class="btn">Next→</a></p>
                     </div>
                 {% else %}
-                    <a onclick="location.href= '/facebook/appDetails/{{ app.AppID }}'"><img
-                            src="{{ url_for('static', filename='' + app.AppImage) }}"
-                            alt="thumbnail">
+                    <a onclick="location.href= '/facebook/appDetails/{{ app.AppID }}'">
+                        <img src="{{ url_for('static', filename='' + app.AppImage) }}" alt="thumbnail">
                     </a>
                     <div class="caption">
                         <h4>{{ app.AppName }}</h4>

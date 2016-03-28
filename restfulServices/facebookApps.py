@@ -20,8 +20,7 @@ class runFacebookApplication(Resource):
             method = getattr(runApplicaions, method_name)
             if not method:
                 raise Exception("Method %s not implemented" % method_name)
-            method(appId)
-            print "Finished"
+            session["fileName"] = method(appId)
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
             facebookCommentUrl = common.baseUrl + '/facebook/' + appId
@@ -29,12 +28,12 @@ class runFacebookApplication(Resource):
             headers = {'Content-Type': 'text/html'}
 
             return make_response(
-                render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
-                                id=userId,
-                                name=userName, appDetails=obj,
-                                facebookCommentUrl=facebookCommentUrl), 200, headers)
+                    render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
+                                    id=userId,
+                                    name=userName, appDetails=obj,
+                                    facebookCommentUrl=facebookCommentUrl), 200, headers)
         else:
-            return flask.redirect('/facebook/appDetails/' + appId)
+            return flask.redirect('/facebook/appDetails/adminApp/' + appId)
 
 
 class runFacebookUserApplication(Resource):
@@ -42,22 +41,21 @@ class runFacebookUserApplication(Resource):
         userAuthorized = True if "facebook_user_token" in session else False
         if userAuthorized:
             obj = getFacebookUserCreatableAppDetailsById(appId)
-            # run method
+            #run method
             method_name = obj.AppMethodName
             method = getattr(runApplicaions, method_name)
             if not method:
                 raise Exception("Method %s not implemented" % method_name)
-            session["image"] = method(appId)
+            session["fileName"] = method(appId)
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
             facebookCommentUrl = common.baseUrl + '/facebook/' + appId
-            obj = getFacebookUserCreatableAppDetailsById(appId)
             headers = {'Content-Type': 'text/html'}
 
             return make_response(
-                render_template('facebook/facebookAdminApp/facebookAppFinished.html', authorized=userAuthorized,
-                                id=userId,
-                                name=userName, appDetails=obj,
-                                facebookCommentUrl=facebookCommentUrl, image=session["image"]), 200, headers)
+                    render_template('facebook/userApp/appFinished/appFinished.html', authorized=userAuthorized,
+                                    id=userId,
+                                    name=userName, appDetails=obj,
+                                    facebookCommentUrl=facebookCommentUrl), 200, headers)
         else:
-            return flask.redirect('/facebook/appDetails/userApp' + appId)
+            return flask.redirect('/facebook/appDetails/userApp/' + appId)

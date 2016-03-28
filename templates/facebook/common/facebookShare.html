@@ -1,6 +1,5 @@
 {% block facebookShare %}
     <a target="_blank"
-       href="https://www.facebook.com/dialog/share?app_id=1686276391610614&amp;display=popup&amp;href=http://jsapps.co/facebook/appDetails/{{ appDetails.AppID }}&amp;picture=http://jsapps.co/static/{{ appDetails.AppResultImage }}&amp;name={{ name }}&amp;description={{ appDetails.AppDescription }}&amp;redirect_uri=http://jsapps.co">
+       href="https://www.facebook.com/dialog/share?app_id=1000944106647575&amp;display=popup&amp;href=http://localhost:5000/facebook/appDetails/{{ appDetails.AppID }}&amp;picture=http://localhost:5000/image/{{ appDetails.AppID }}&amp;name={{ name }}&amp;description={{ appDetails.AppDescription }}&amp;redirect_uri=http://localhost:5000/">
         <img class="img-responsive" src="{{ url_for('static', filename='images/common/share-facebook.png') }}"></a>
-
 {% endblock %}

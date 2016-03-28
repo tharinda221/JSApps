@@ -234,4 +234,5 @@ def getFacebookUserCreatableAppsIDList(parentAppId):
         list.append(data["_id"])
     return list
 
+
 # def increaseAppCount(dbCollection):
