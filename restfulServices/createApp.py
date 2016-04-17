@@ -33,9 +33,11 @@ class createApp(Resource):
     def post(self):
         global facebookUserObj
         print request.form
+        id = FacebookUserCreatableAppsData(request.form['title'], request.form['description'])
         file = request.files['watermark']
-        filename = secure_filename(file.filename)
-        filePath = config.facebookUserAppsImagePath + filename
+        filePath = config.pathToUserImage + str(id) + "/FilteringImage.png"
+        if not os.path.exists(config.pathToUserImage + str(id)):
+            os.makedirs(config.pathToUserImage + str(id))
         print filePath
         file.save(filePath)
         facebookUserObj = getFacebookUser()

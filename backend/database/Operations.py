@@ -107,24 +107,25 @@ def putFacebookAppsData():
     print("Inserted FacebookApp data")
 
 
-def FacebookUserCreatableAppsData():
+def FacebookUserCreatableAppsData(AppName, AppDescription):
     id = databaseCollections.facebookUserCreatableAppsCollectionName.insert({})
     databaseCollections.facebookUserCreatableAppsCollectionName.save(
             {
                 "_id": ObjectId(id),
-                "AppName": "Profile Pic creator",
+                "AppName": AppName,
                 "AppMethodName": "ProfilePicCreator",
                 "AppUsedCount": 0,
                 "AppCreatedTime": datetime.datetime.utcnow(),
-                "AppDescription": "Use this for your memorable occasion",
+                "AppDescription": AppDescription,
                 "AppMessage": "Change your profile picture against CEPA/ETCA",
                 "AppPerentId": "56bf6355380dab5a65b7935b",
                 "AppImage": "images/appImages/facebook/userApps/" + str(id) + "/appImage.jpg",
-                "AppSourceImage": "images/appImages/facebook/app1/" + str(id) + "/AppSourceImage.jpg",
-                "AppFilteringImage": "images/appImages/facebook/app1/" + str(id) + "/FilteringImage.png"
+                "AppSourceImage": "images/appImages/facebook/userApps/" + str(id) + "/AppSourceImage.jpg",
+                "AppFilteringImage": "images/appImages/facebook/userApps/" + str(id) + "/FilteringImage.png"
             }
     )
     print("Inserted FacebookUserCreatableApp data")
+    return id
 
 
 def putTwitterAppsData():

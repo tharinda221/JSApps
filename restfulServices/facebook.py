@@ -97,6 +97,7 @@ class getFacebookApp(Resource):
         if userAuthorized:
             userId = session["facebookUser"]["userId"]
             userName = session["facebookUser"]["userName"]
+            return flask.redirect('/facebook/runApplication/adminApp/' + appId)
         return make_response(
                 render_template('facebook/facebookAdminApp/facebookAppDetailPage.html', authorized=userAuthorized,
                                 id=userId,

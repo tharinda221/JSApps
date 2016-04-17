@@ -43,7 +43,7 @@ class facebookAppsMethods(object):
         return config.AppsImagePath + "facebook/app1/" + fileName + ".jpg"
 
 
-    def profileImagesOnAGif(self):
+    def profileImagesOnAGif(self, appId):
         profilePicsAlbumId = getAlbumIdByName(session["facebook_user_token"], session["facebookUser"]["userId"],
                                               "Profile Pictures")
         profilePicslist = getAlbumFromId(session["facebook_user_token"], profilePicsAlbumId)['data']
@@ -53,7 +53,12 @@ class facebookAppsMethods(object):
         images = []
         for profPicURL in profilePicsURLlist:
             images.append(readImageFromURL(profPicURL))
-        createGIF(images=images, filename=config.AppsImagePath + "facebook/app1/result.gif")
+        fileName = str(random_with_N_digits(24))
+        directory = config.pathToAppsImage + appId
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        createGIF(images=images, filename=directory + "/" + fileName + ".gif")
+        return directory + "/" + fileName + ".gif"
 
 
     def ProfilePicCreator(self, appId):
