@@ -1,5 +1,4 @@
 # import libraries
-import base64
 
 import dateutil.parser as parser
 from random import randint
@@ -70,3 +69,21 @@ class facebookAppsMethods(object):
         fileName = str(random_with_N_digits(24))
         background.save(config.pathToUserImage + appId + "/" + fileName + ".jpg")
         return config.pathToUserImage + appId + "/" + fileName + ".jpg"
+
+    def CelebrityDatingMatch(self, appId):
+        document = databaseCollections.facebookAppsCollectionName.find_one({'_id': ObjectId(appId)})
+        url = getUserProfilePic(session["facebook_user_token"])
+        age = randint(18,40)
+        skill = os.urandom(randint(0,9))
+        print age, " ", len(skill), " ", (age < 35)
+        celeb, celebUrl = findSoulMate(session["facebookUser"]["gender"], age, skill)
+        userImage = readImageFromURL(url)
+        celebImage = readImageFromURL(celebUrl)
+        background = Image.open(config.pathToStatic + document["AppSourceImage"])
+        background.paste(userImage, (37, 127))
+        background.paste(celebImage, (436, 127))
+        writeTextInImage(session["facebookUser"]["userName"], background, 20, 37, 290)
+        writeTextInImage(celeb, background, 20, 436, 290)
+        fileName = str(random_with_N_digits(24))
+        background.save(config.pathToAppsImage + "app1" + "/" + fileName + ".jpg")
+        return config.pathToAppsImage + "app1" + "/" + fileName + ".jpg"
