@@ -73,10 +73,8 @@ class facebookAppsMethods(object):
     def CelebrityDatingMatch(self, appId):
         document = databaseCollections.facebookAppsCollectionName.find_one({'_id': ObjectId(appId)})
         url = getUserProfilePic(session["facebook_user_token"])
-        age = randint(18,40)
-        skill = os.urandom(randint(0,9))
-        print age, " ", len(skill), " ", (age < 35)
-        celeb, celebUrl = findSoulMate(session["facebookUser"]["gender"], age, skill)
+        skill = randint(0,6)
+        celeb, celebUrl = findSoulMate(session["facebookUser"]["gender"], skill)
         userImage = readImageFromURL(url)
         celebImage = readImageFromURL(celebUrl)
         background = Image.open(config.pathToStatic + document["AppSourceImage"])

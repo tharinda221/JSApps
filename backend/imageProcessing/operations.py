@@ -38,26 +38,52 @@ def createGIF(images, filename):
     writeGif(filename, images, duration=0.5)
 
 
-def findSoulMate(gender, age, skill):
+def findSoulMate(gender, skill):
     celebrity, celebURL = "", ""
     if gender == "male":
-        if age < 35:
-            if len(skill) < 5:
-                celebrity = "Annalise Basso"
-                celebURL = "http://ia.media-imdb.com/images/M/MV5BMTkwMDQzNjIxNl5BMl5BanBnXkFtZTgwMTQ4OTU2NDE@._V1_UY317_CR9,0,214,317_AL_.jpg"
-            else:
-                celebrity = "Scarlett Johansson"
-                celebURL = "http://ia.media-imdb.com/images/M/MV5BMTUwNzMwMzgyOV5BMl5BanBnXkFtZTcwMjk0ODY1NA@@._V1._SX640_SY962_.jpg"
+        if skill == 0:
+            celebrity = "sunny leone"
+            celebURL = "http://media2.intoday.in/indiatoday/images/stories/sunny-leone-story_650_051615105431.jpg"
+        elif skill == 1:
+            celebrity = "Lisa Ann"
+            celebURL = "http://cdn.slamonline.com/wp-content/uploads/2016/03/lisaann_fv.jpg"
+        elif skill == 2:
+            celebrity = "deepika padukone"
+            celebURL = "http://i1.tribune.com.pk/wp-content/uploads/2015/11/983087-deepika-1446369022-581-640x480.jpg"
+        elif skill == 3:
+            celebrity = "Sonakshi Sinha"
+            celebURL = "http://i1.tribune.com.pk/wp-content/uploads/2015/08/932042-sinha-1438675561-507-640x480.jpg"
+        elif skill == 4:
+            celebrity = "Tharu Kumara"
+            celebURL = "https://i.ytimg.com/vi/1CYflZReeEE/hqdefault.jpg"
+        elif skill == 5:
+            celebrity = "Ishitha balha"
+            celebURL = "http://ytimg.googleusercontent.com/vi/NRzEmEier8s/0.jpg"
         else:
-            celebrity = "Kate Walsh"
-            celebURL = "http://ia.media-imdb.com/images/M/MV5BMTk2NDEzNzg3MV5BMl5BanBnXkFtZTcwNjI1Mzg2Mw@@._V1_UX214_CR0,0,214,317_AL_.jpg"
+            celebrity = "emma watson"
+            celebURL = "http://s3-us-west-2.amazonaws.com/ruuvy-snooki-uploads/wp-content/uploads/2016/03/02/02093445/Nicole-Snooki-Polizzi-Emma-Watson-Sex-Website-Subscriber-Feminism.jpg"
     else:
-        if age < 35:
-            celebrity = "George Clooney"
-            celebURL = "http://ia.media-imdb.com/images/M/MV5BMjEyMTEyOTQ0MV5BMl5BanBnXkFtZTcwNzU3NTMzNw@@._V1_UY317_CR9,0,214,317_AL_.jpg"
+        if skill == 0:
+            celebrity = "Raman Balha"
+            celebURL = "http://3.bp.blogspot.com/-7SHgAg05PQI/VT3cCrKG4UI/AAAAAAAADVo/lDJ_dURj_gw/s1600/raman.jpg"
+        elif skill == 1:
+            celebrity = "Tharu Kumara"
+            celebURL = "https://i.ytimg.com/vi/1CYflZReeEE/hqdefault.jpg"
+        elif skill ==2:
+            celebrity = "ranbir kapoor"
+            celebURL = "http://economictimes.indiatimes.com/photo/48239734.cms"
+        elif skill ==3:
+            celebrity = "justin bieber"
+            celebURL = "http://pixel.nymag.com/imgs/daily/vulture/2016/01/04/4-justin-bieber-cornrows.w529.h529.jpg"
+        elif skill ==4:
+            celebrity = "Daniel Radcliffe"
+            celebURL = "http://instinctmagazine.com/sites/instinctmagazine.com/files/images/blog_posts/Nigel%20Campbell/2016/01/24/daniel%20radcliffe.jpg"
+        elif skill ==5:
+            celebrity = "Bill Gates"
+            celebURL = "http://aib.edu.au/blog/wp-content/uploads/2015/08/bill-gates-jpg.jpg"
         else:
-            celebrity = "Sacha Baron Cohen"
-            celebURL = "http://ia.media-imdb.com/images/M/MV5BMTkzMTY4Nzc2NF5BMl5BanBnXkFtZTgwODc3MDI2MDE@._V1_UY317_CR11,0,214,317_AL_.jpg"
+            celebrity = "shahrukh khan"
+            celebURL = "https://hilleletv.files.wordpress.com/2015/11/shahrukhkhan-jan30.jpg"
 
     return celebrity, celebURL
 
